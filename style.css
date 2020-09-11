@@ -21,185 +21,74 @@
   padding-top: 100%;
   display: block;
 }
-.menu {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  font-size: 35px;
-  line-height: 220%;
-}
-.name {
+.artist {
   position: absolute;
   transform: translate(-50%, -50%);
   top: 88%;
-  left: 76%;
+  left: 78%;
   font-size: 23px;
+
 }
 .portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 48%;
+  top: 50%;
   left: 13%;
-  width: 20px;
-  font-size: 50px;
-  word-wrap: break-word;
-
+  font-size: 5px;
+  line-height: 30px;
+  font-weight: 300;
 }
-
-.container {
-  width: 580px;
-  margin: 0 auto;
-}
-
 .page {
   display: flex;
   flex-direction: column;
   min-width: 640px;
   min-height: 100vh;
   margin: 0;
-  font-family: Verdana,  sans-serif;
+  font-family:     Calibri, Arial,  sans-serif;
   font-size: 20px;
   font-weight: lighter;
   color: #333333;
   background-color: #e3e2d8;
 }
-
-.section-title {
-  width: 100%;
-  margin: 0;
-  margin-bottom: 20px;
-  padding: 0;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 24px;
+.vT {
+  font-size: 20px;
+  font-weight: lighter;
+  color: red;
+  background-color: green;
+}
+.menu {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  line-height: 180%;
+}
+span {
+  font-size: 45px;
+  line-height: 140%;
 }
 
 a {
-  color: #6653d9;
-}
-
-a:focus {
-  outline-color: #b6aaff;
-}
-
-.page-header {
-  height: 1400px;
   color: #333333;
-  background-color: #e3e2d8;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  position: relative;
+} 
+a:after {
+  display: block;
+  position: absolute;
+  left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0;/*задаём длинну линии до наведения курсора*/
+  height: 2px; /*задаём ширину линии*/
+  background-color: black; /*задаём цвет линии*/
+  content: "";
+  transition: width 0.3s ease-out; /*задаём время анимации*/
+
 }
-
-.page-header .container {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-image: url("img/4363.jpg");
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 290px 212px;
-}
-
-.page-header a {
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.page-title {
-  margin: 0;
-  margin-bottom: 4px;
-  padding: 0;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 48px;
-}
-
-.about {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 32px;
- }
-
-.about-image {
-   width: 147px;
-   height: 147px;
-   border-radius: 50%;
- }
-
-.about-content {
-   width: 410px;
-   font-size: 14px;
-   line-height: 24px;
- }
-
-.about-content p {
-   margin: 0;
-   margin-bottom: 12px;
-   padding: 0;
- }
-
-.status {
-  margin-bottom: 32px;
-}
-
-.status p {
-  margin: 0;
-  padding-top: 12px;
-  padding-right: 32px;
-  padding-bottom: 16px;
-  padding-left: 32px;
-  border-radius: 32px 0;
-  font-size: 16px;
-  line-height: 24px;
-  font-style: italic;
-  color: #333333;
-  background-color: #ffffff;
-}
-
-.contacts {
-  margin-bottom: 82px;
-}
-
-.contacts img {
-  width: 146px;
-  height: 146px;
-  margin-right: 24px;
-}
-
-.contacts p {
-  margin: 0;
-  margin-bottom: 12px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 24px;
-}
-
-p.contacts-name {
-  margin-top: 20px;
-  margin-bottom: 16px;
-  font-weight: bold;
-  line-height: 20px;
-}
-
-.contacts a {
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.page-footer {
-  margin-top: auto;
-  color: #ffffff;
-}
-
-.page-footer .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  padding-bottom: 14px;
-}
-
-.page-footer p {
-  margin: 0;
-  padding: 0;
+a:hover:after,
+a:focus:after {
+    width: 100%;
 }
