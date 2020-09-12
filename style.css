@@ -97,6 +97,7 @@ a:focus:after {
   .verticalText {
   font-size: 40px;
   line-height: 120%;
+  color: red;
   }
   
 }
