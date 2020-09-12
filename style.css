@@ -92,3 +92,11 @@ a:hover:after,
 a:focus:after {
     width: 100%;
 }
+
+@media screen and (max-width: 1600px){
+  .verticalText {
+  font-size: 40px;
+  line-height: 120%;
+  }
+  
+}
