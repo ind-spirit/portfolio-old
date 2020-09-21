@@ -140,20 +140,20 @@ a:focus:after {
 }
 @media screen and (max-width: 600px){
   .vT {
-    font-size: 23px;
+    font-size: 25px;
 
     color: purple;
   }
-    .menu {
-    font-size: 23px;
+  .menu {
+    font-size: 26px;
     line-height: 180%;
   }
   .artist {
-    font-size: 15px;
+    font-size: 17px;
   }
   .box { 
     margin-top: 5%;
-    border: 3px solid black;
+    border: none;
     width: 90%;
     position: relative;
   }
