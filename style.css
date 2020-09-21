@@ -1,6 +1,6 @@
 .box { 
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 4%;
   border: 3px solid black;
   width: 40%;
   position: relative;
@@ -14,8 +14,8 @@
   position: absolute;
   transform: translate(-50%, -50%);
   top: 88%;
-  left: 77%;
-  font-size: 26px;
+  left: 75%;
+  font-size: 29px;
   white-space: pre;
 }
 .portfolio {
@@ -34,7 +34,7 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-width: 640px;
+  min-width: 360px;
   min-height: 100vh;
   margin: 0;
   font-family:     Calibri, Arial,  sans-serif;
@@ -83,36 +83,78 @@ a:focus:after {
 @media screen and (max-width: 1600px){
   .vT {
     font-size: 40px;
-    line-height: 120%;
     color: red;
   }
   .menu {
     font-size: 35px;
-    line-height: 180%;
   }
   .artist {
     font-size: 23px;
   }
+  .box { 
+    margin-top: 4%;
+    border: 3px solid black;
+    width: 50%;
+    position: relative;
+  }
 }
-
-@media screen and (max-width: 400px){
+@media screen and (max-width: 1300px){
   .vT {
-    font-size: 18px;
+    font-size: 37px;
+    line-height: 125%;
+    color: blue;
+  }
+  .menu {
+    font-size: 33px;
+  }
+  .artist {
+
+    font-size: 26px;
+  }
+  .box { 
+    margin-top: 5%;
+    border: 3px solid black;
+    width: 50%;
+    position: relative;
+  }
+}
+@media screen and (max-width: 1100px){
+  .vT {
+    font-size: 34px;
     line-height: 120%;
+    color: green;
+  }
+  .menu {
+    font-size: 31px;
+  }
+  .artist {
+
+    font-size: 23px;
+  }
+  .box { 
+    margin-top: 3%;
+    border: 3px solid black;
+    width: 70%;
+    position: relative;
+  }
+}
+@media screen and (max-width: 600px){
+  .vT {
+    font-size: 23px;
+
     color: purple;
   }
     .menu {
-    font-size: 20px;
+    font-size: 23px;
     line-height: 180%;
   }
   .artist {
-    font-size: 12px;
+    font-size: 15px;
   }
   .box { 
-    margin-left: 7%;
-    margin-top: 50px;
+    margin-top: 5%;
     border: 3px solid black;
-    width: 40%;
+    width: 90%;
     position: relative;
   }
 }
