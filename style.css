@@ -1,7 +1,7 @@
 .box { 
   margin: 0 auto;
   margin-top: 4%;
-  border: 3px solid black;
+  border: 2px solid black;
   width: 40%;
   position: relative;
 }
@@ -9,6 +9,13 @@
   content: "";
   padding-top: 100%;
   display: block;
+}
+img {
+  position: absolute;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  top: 10%;
+  left: 50%;
 }
 .artist {
   position: absolute;
@@ -149,11 +156,12 @@ a:focus:after {
     line-height: 180%;
   }
   .artist {
+
     font-size: 17px;
   }
   .box { 
-    margin-top: 5%;
-    border: 0px;
+    margin-top: 0%;
+    border: none;
     width: 90%;
     position: relative;
   }
