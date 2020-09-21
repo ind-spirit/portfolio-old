@@ -153,7 +153,7 @@ a:focus:after {
   }
   .box { 
     margin-top: 5%;
-    border: none;
+    border: 0px;
     width: 90%;
     position: relative;
   }
