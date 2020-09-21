@@ -31,6 +31,7 @@
   font-weight: 300;
 }
 .page {
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   min-width: 640px;
@@ -94,7 +95,7 @@ a:focus:after {
   }
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 400px){
   .vT {
     font-size: 18px;
     line-height: 120%;
@@ -106,5 +107,12 @@ a:focus:after {
   }
   .artist {
     font-size: 12px;
+  }
+  .box { 
+    margin-left: 7%;
+    margin-top: 50px;
+    border: 3px solid black;
+    width: 40%;
+    position: relative;
   }
 }
