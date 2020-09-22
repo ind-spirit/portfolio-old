@@ -1,5 +1,7 @@
 body {
 	background-color: #e3e2d8;
+	flex-direction: column;
+	
 }
 
 .photos {
@@ -13,5 +15,11 @@ img {
 	width: 25%;
 	margin-left: auto;
     margin-right: auto;
-    padding: 30px;
+    padding: 4%;
+}
+
+@media screen and (max-width: 600px){
+	img {
+		width: 80%;
+	}
 }
