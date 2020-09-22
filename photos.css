@@ -1,0 +1,17 @@
+body {
+	background-color: #e3e2d8;
+}
+
+.photos {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+img {
+	display: block;
+	width: 25%;
+	margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}

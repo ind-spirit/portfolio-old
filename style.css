@@ -5,15 +5,15 @@
   width: 40%;
   position: relative;
 }
-img {
-  display: none;
-}
+
 .box1 {
   content: "";
   padding-top: 100%;
   display: block;
 }
-
+img {
+  display: none;
+}
 .artist {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -136,7 +136,7 @@ a:focus:after {
     font-size: 23px;
   }
   .box { 
-    margin-top: 3%;
+    margin-top: 4%;
     border: 3px solid black;
     width: 70%;
     position: relative;
