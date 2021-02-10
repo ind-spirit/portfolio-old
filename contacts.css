@@ -1,0 +1,118 @@
+:root {
+    /* --bg: #e3e2d8;
+    --main: black;
+    --text: #333333; */
+    --bg: #fffcf2;
+    --main: black;
+    --text: #403d39;
+  
+  }
+
+
+
+body {
+    overflow-x: hidden;
+    min-width: 360px;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 23px;
+    font-weight: lighter;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+h1 {
+    font-size: 55px;
+    font-weight: lighter;
+    margin-top: 3%;
+    text-align: center;
+}
+
+#contacts {
+    border: 2px solid black;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    line-height: 220%;
+    text-align: center;
+}
+
+p {
+    height: 3%;
+}
+
+#back {
+    
+}
+
+.ul {
+    color: var(--text);
+    text-decoration: none;
+    position: relative;
+}
+
+.ul:after {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    /*изменить на right:0;, чтобы изменить направление подчёркивания */
+    width: 0;
+    /*задаём длинну линии до наведения курсора*/
+    height: 2px;
+    /*задаём ширину линии*/
+    background-color: black;
+    /*задаём цвет линии*/
+    content: "";
+    transition: width 0.3s ease-out;
+    /*задаём время анимации*/
+}
+
+.ul:hover:after, .ul:focus:after {
+    width: 100%;
+}
+
+
+/* горизонтальные линии возле заголовка */
+
+.lines {
+    overflow: hidden;
+}
+
+.lines:before, .lines:after {
+    content: '';
+    /* делаем линию строчно-блочной */
+    display: inline-block;
+    /* выравниваем вертикально по середине */
+    vertical-align: middle;
+    /* не позволяем ширине превысить 100% (будет добавлен бордюр) */
+    box-sizing: border-box;
+    /* установка ширины в 100% делает линию равной ширине тега заголовка
+	** благодаря этому линия заполнит все свободное пространство
+	** слева и справа от текста
+	*/
+    width: 11%;
+    height: 3px;
+    background: #080808;
+    /* добавляем к линии левый и правый бордюр цветом основного фона заголовка
+	** благодаря этому создается нужный отступ между линиями и текстом
+	*/
+    border: solid var(--bg);
+    border-width: 0 19px;
+}
+
+.lines:before {
+    /* смещаем левую линию влево отрицательным отступом, равным 100% ширины
+	** благодаря этому линия встает слева от текста
+	*/
+    margin-left: -100%;
+}
+
+.lines:after {
+    /* смещаем правую линию вправо отрицательным отступом, равным 100% ширины
+	** благодаря этому линия встает справа от текста
+	*/
+    margin-right: -100%;
+}

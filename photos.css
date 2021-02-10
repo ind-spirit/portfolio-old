@@ -1,5 +1,15 @@
+:root {
+	/* --bg: #e3e2d8;
+	--main: black;
+	--text: #333333; */
+	--bg: #fffcf2;
+	--main: black;
+	--text: #403d39;
+  
+  }
+
 body {
-	background-color: #e3e2d8;
+	background-color: var(--bg);
 	flex-direction: column;
 	
 }
