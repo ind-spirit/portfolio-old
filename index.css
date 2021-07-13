@@ -2,7 +2,7 @@
     /* --bg: #e3e2d8;
   --main: black;
   --text: #333333; */
-    --bg: #fffcf2;
+    --bg: red;
     --main: black;
     --text: #403d39;
     --square: 78vh;
@@ -105,10 +105,11 @@ a:hover:after, a:focus:after {
     width: 100%;
 }
 
-@media screen and (max-aspect-ratio: 3/5) {
+@media screen and (max-aspect-ratio: 4/7) {
      :root {
         --square: 78vw;
         --square-padding: calc((100vw - var(--square)) / 2);
+        --bg: #fffcf2;
     }
     .vT {
         font-size: 5vw;
