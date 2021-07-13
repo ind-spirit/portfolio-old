@@ -19,6 +19,7 @@ body {
 }
 
 .wrapper {
+    align-self: center;
     margin: auto;
     height: var(--square);
     width: var(--square);
@@ -57,10 +58,10 @@ img {
 }
 
 .vT {
-    font-size: 5vh;
+    font-size: 5.5vh;
     font-weight: lighter;
     color: var(--text);
-    line-height: 6vh;
+    line-height: 6.5vh;
 }
 
 .menu {
@@ -68,12 +69,12 @@ img {
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    font-size: 4vh;
+    font-size: 5vh;
     line-height: 190%;
 }
 
 .artist {
-    font-size: 3vh;
+    font-size: 3.5vh;
 }
 
 a {
@@ -102,13 +103,31 @@ a:hover:after, a:focus:after {
     width: 100%;
 }
 
-@media screen and (max-aspect-ratio: 5/8) {
+@media screen and (max-aspect-ratio: 11/10) {
+     :root {
+        --square: 70vw;
+        --square-padding: calc((90vw - var(--square)) / 2);
+    }
+    .vT {
+        font-size: 5vw;
+        line-height: 6.5vw;
+    }
+    .menu {
+        font-size: 5vw;
+        line-height: 10vw;
+    }
+    .artist {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (max-aspect-ratio: 8/11) {
      :root {
         --square: 78vw;
         --square-padding: calc((120vw - var(--square)) / 2) 0;
     }
     .wrapper {
-      width: 94vw;
+        width: 94vw;
     }
     .vT {
         font-size: 7vw;
