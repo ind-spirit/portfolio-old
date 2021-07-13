@@ -1,8 +1,5 @@
 :root {
-    /* --bg: #e3e2d8;
-  --main: black;
-  --text: #333333; */
-    --bg: green;
+    --bg: #fffcf2;
     --main: black;
     --text: #403d39;
     --square: 78vh;
@@ -76,7 +73,7 @@ img {
 }
 
 .artist {
-  font-size: 3vh;
+    font-size: 3vh;
 }
 
 a {
@@ -108,16 +105,18 @@ a:hover:after, a:focus:after {
 @media screen and (max-aspect-ratio: 5/8) {
      :root {
         --square: 78vw;
-        --square-padding: calc((100vw - var(--square)) / 2);
-        --bg: #fffcf2;
+        --square-padding: calc((120vw - var(--square)) / 2) 0;
+    }
+    .wrapper {
+      width: 94vw;
     }
     .vT {
-        font-size: 5vw;
-        line-height: 7vw;
+        font-size: 7vw;
+        line-height: 8vw;
     }
     .menu {
-        font-size: 5vw;
-        line-height: 10vw;
+        font-size: 6vw;
+        line-height: 11vw;
     }
     .artist {
         font-size: 4vw;
