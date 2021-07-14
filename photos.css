@@ -11,7 +11,10 @@
 body {
 	background-color: var(--bg);
 	flex-direction: column;
-	
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 4vh;
+    font-weight: lighter;
+    color: var(--text);
 }
 
 .photos {
@@ -26,6 +29,19 @@ img {
 	margin-left: auto;
     margin-right: auto;
     padding: 4%;
+}
+.back {
+	display: block;
+	color: var(--text);
+    text-decoration: none;
+	margin: 6vh auto 3vh;
+	width: fit-content;
+}
+
+@media screen and (max-aspect-ratio: 3/2) {
+	.back {
+		margin: 6vh auto 2vh;
+	}
 }
 
 @media screen and (max-width: 600px){
