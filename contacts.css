@@ -5,15 +5,10 @@
     --bg: #fffcf2;
     --main: black;
     --text: #403d39;
-  
-  }
-
-
+}
 
 body {
     overflow-x: hidden;
-    min-width: 360px;
-    min-height: 100vh;
     margin: 0;
     font-family: Calibri, Arial, sans-serif;
     font-size: 23px;
@@ -29,28 +24,33 @@ h1 {
     text-align: center;
 }
 
-#contacts {
+.contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     border: 2px solid black;
-    width: 30%;
+    width: 30vw;
+    height: 60vh;
+    margin-top: 12vh;
     margin-left: auto;
     margin-right: auto;
-    font-size: 30px;
-    line-height: 220%;
+    font-size: 4vh;
+    line-height: 6vh;
     text-align: center;
+    min-width: max-content;
+    align-items: center;
 }
 
 p {
     height: 3%;
 }
 
-#back {
-    
-}
-
 .ul {
     color: var(--text);
     text-decoration: none;
     position: relative;
+    width: fit-content;
+    height: fit-content;
 }
 
 .ul:after {
@@ -74,11 +74,15 @@ p {
     width: 100%;
 }
 
+.back {
+    margin-top: 3vh;
+}
 
 /* горизонтальные линии возле заголовка */
 
 .lines {
     overflow: hidden;
+    margin-top: 5vh;
 }
 
 .lines:before, .lines:after {
@@ -93,7 +97,7 @@ p {
 	** благодаря этому линия заполнит все свободное пространство
 	** слева и справа от текста
 	*/
-    width: 11%;
+    width: 11vw;
     height: 3px;
     background: #080808;
     /* добавляем к линии левый и правый бордюр цветом основного фона заголовка
@@ -115,4 +119,35 @@ p {
 	** благодаря этому линия встает справа от текста
 	*/
     margin-right: -100%;
+}
+@media screen and (max-aspect-ratio: 3/2) {
+    .contacts {
+        width: 40vw;
+    }
+    .lines:before, .lines:after {
+        width: 15vw;
+        height: 3px;
+        border-width: 0 19px;
+    }
+}
+@media screen and (max-aspect-ratio: 3/4) {
+    .contacts {
+        margin-top: 12vh;
+        border: none;
+        width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 4vh;
+        line-height: 7vh;
+        text-align: center;
+    }
+    .ul:after{
+        height: 1px;
+    }
+    .lines:after {
+        display: none;
+    }
+    .lines:before {
+        display: none;
+    }
 }
