@@ -5,6 +5,8 @@
     --bg: #fffcf2;
     --main: black;
     --text: #403d39;
+    cursor: crosshair;
+    user-select: none;
 }
 
 body {
@@ -23,7 +25,9 @@ h1 {
     margin-top: 3%;
     text-align: center;
 }
-
+a {
+    cursor: default;
+}
 .contacts {
     display: flex;
     flex-direction: column;

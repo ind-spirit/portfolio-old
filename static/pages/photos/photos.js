@@ -1,9 +1,12 @@
 window.onload = function() {
     let total = 34;
     // LOAD PICTURES TO THE PAGE
-    let container = document.getElementById('photo-container');
-    let path = "../../assets/photos/";
-    let jpg = ".jpg"
+    let container = document.getElementsByClassName('gallery')[0];
+    // let path = "../../assets/photos/";
+    let path = "https://ik.imagekit.io/indspirit/";
+    let bl = ".jpg?tr=bl-10,h-250px";
+    let jpg = ".jpg?tr=h-400";
+    let preview = ".jpg?tr=h-12:h-250";
 
     //LOAD A PICTURE
 
@@ -22,21 +25,49 @@ window.onload = function() {
 
     function next_image() {
         let current = document.getElementsByClassName('photo')[0];
-        let index = parseInt(current.id, 10);
-        if (index + 1 >= total) {
-            index = 0;
+        let index = parseInt(current.id, 10) + 1;
+        if (index >= total) {
+            index = 1;
         }
-        current.src = path + index++ + jpg;
-        current.id = index++;
+        current.src = path + index + jpg;
+        current.id = index;
+    }
+
+    //CREATE PLACEHOLDERS
+    function create_placeholders() {
+        for (let i = 1; i < total; i++) {
+            let placeholder = document.createElement('img');
+            placeholder.src = path + i + preview;
+            placeholder.setAttribute('data-src', `${path + i + jpg}`);
+            placeholder.classList.add('opacity')
+            placeholder.alt = "photo";
+            placeholder.id = i;
+            container.append(placeholder);
+            setTimeout(function() {
+                placeholder.classList.remove('opacity')
+            }, 1000);
+        }
     }
 
     //LOAD SEVERAL PICTURES
     function create_images() {
-        for (let i = 30; i < 31; i++) {
-            let createImg = document.createElement('img');
-            createImg.src = path + i + jpg;
-            createImg.alt = "photo didn't load";
-            container.append(createImg);
+        for (let i = 1; i < total; i++) {
+            let img = document.createElement('img');
+            let placeholder = document.getElementById(i);
+            console.log(placeholder);
+            img.src = path + i + jpg;
+            img.onload = function() {
+                // add a small timeout to allow the transition when the image is already in memory
+                setTimeout(() => {
+                    // replace the placeholder src with the full image src
+                    placeholder.src = img.src;
+                    placeholder.removeAttribute("data-src");
+                    setTimeout(() => {
+                        placeholder.style.transition = '0s';
+                    }, 1000);
+                }, 200);
+                // container.append(createImg);
+            }
         }
     }
 
@@ -59,9 +90,7 @@ window.onload = function() {
         third.style.setProperty('margin-top', '-140px');
     }
 
-    let next_btn = document.getElementsByClassName('next')[0]; 
-    next_btn.addEventListener('click', function () {
-        next_image();
-    });
-    create_image();
+
+    create_placeholders();
+    create_images();
 }
