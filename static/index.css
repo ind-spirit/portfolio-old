@@ -10,7 +10,6 @@
 
 body {
     overflow-x: hidden;
-    display: flex;
     flex-direction: column;
     margin: 0;
     font-family: Calibri, Arial, sans-serif;
@@ -18,15 +17,16 @@ body {
     font-weight: lighter;
     color: var(--text);
     background-color: var(--bg);
-
+    display: flex;
+    align-items: center;
+    height: 100vh;
 }
 
 .wrapper {
-    align-self: center;
     margin: auto;
     height: var(--square);
     width: var(--square);
-    padding: var(--square-padding);
+    /* padding: var(--square-padding); */
 }
 
 img {
