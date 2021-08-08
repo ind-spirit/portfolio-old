@@ -84,6 +84,7 @@ a {
     color: var(--text);
     text-decoration: none;
     position: relative;
+    cursor: default;
 }
 
 a:after {
