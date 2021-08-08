@@ -1,0 +1,216 @@
+:root {
+    --bg: #fffcf2;
+    --main: black;
+    --text: #403d39;
+    --square: 78vh;
+    --square-padding: calc((100vh - var(--square)) / 2);
+    cursor: crosshair;
+    user-select: none;
+}
+
+body {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: var(--text);
+    background-color: var(--bg);
+
+}
+
+.wrapper {
+    align-self: center;
+    margin: auto;
+    height: var(--square);
+    width: var(--square);
+    padding: var(--square-padding);
+}
+
+img {
+    display: none;
+}
+
+.box {
+    border: 0.3vh solid black;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.artist {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 88%;
+    left: 75%;
+    font-size: 29px;
+    white-space: pre;
+}
+
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 13%;
+    font-weight: 300;
+}
+
+.vT {
+    font-size: 5.5vh;
+    font-weight: lighter;
+    color: var(--text);
+    line-height: 6.5vh;
+}
+
+.menu {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 5vh;
+    line-height: 190%;
+}
+
+.artist {
+    font-size: 3.5vh;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    position: relative;
+    cursor: default;
+}
+
+a:after {
+    display: block;
+    position: absolute;
+    left: 0;
+    /*изменить на right:0;, чтобы изменить направление подчёркивания */
+    width: 0;
+    /*задаём длинну линии до наведения курсора*/
+    height: 0.2vh;
+    /*задаём ширину линии*/
+    background-color: black;
+    /*задаём цвет линии*/
+    content: "";
+    transition: width 0.3s ease-out;
+    /*задаём время анимации*/
+}
+
+a:hover:after, a:focus:after {
+    width: 100%;
+}
+
+@media screen and (max-aspect-ratio: 11/10) {
+     :root {
+        --square: 70vw;
+        --square-padding: calc((90vw - var(--square)) / 2);
+    }
+    .vT {
+        font-size: 5vw;
+        line-height: 6.5vw;
+    }
+    .menu {
+        font-size: 5vw;
+        line-height: 10vw;
+    }
+    .artist {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (max-aspect-ratio: 8/11) {
+     :root {
+        --square: 78vw;
+        --square-padding: calc((120vw - var(--square)) / 2) 0;
+    }
+    .wrapper {
+        width: 94vw;
+    }
+    .vT {
+        font-size: 7vw;
+        line-height: 8vw;
+    }
+    .menu {
+        font-size: 6vw;
+        line-height: 11vw;
+    }
+    .artist {
+        font-size: 4vw;
+    }
+    .box {
+        border: none;
+    }
+    img {
+        display: block;
+        position: absolute;
+        width: 100vw;
+    }
+}
+
+
+/* @media screen and (max-width: 1600px) {
+    .vT {
+        font-size: 40px;
+        color: red;
+    }
+    .menu {
+        font-size: 35px;
+    }
+    .artist {
+        font-size: 23px;
+    }
+    .box {
+        border: 3px solid black;
+        position: relative;
+    }
+} */
+
+
+/* @media screen and (max-width: 1300px) {
+    .vT {
+        font-size: 37px;
+        line-height: 125%;
+        color: blue;
+    }
+    .menu {
+        font-size: 33px;
+    }
+    .artist {
+        font-size: 26px;
+    }
+    .box {
+        border: 3px solid black;
+        position: relative;
+    }
+} */
+
+
+/* @media screen and (max-width: 1100px) {
+    .vT {
+        font-size: 34px;
+        line-height: 120%;
+        color: green;
+    }
+    .menu {
+        font-size: 31px;
+    }
+    .artist {
+        font-size: 23px;
+    }
+    .box {
+        border: 3px solid black;
+        position: relative;
+    }
+} */
+
+
+/* @media screen and (max-width: 600px) {
+
+} */
