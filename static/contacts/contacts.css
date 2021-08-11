@@ -56,7 +56,13 @@ p {
     width: fit-content;
     height: fit-content;
 }
-
+.back {
+    color: var(--text);
+    text-decoration: none;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
 .ul:after {
     display: block;
     overflow: hidden;
