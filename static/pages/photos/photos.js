@@ -18,13 +18,16 @@
 
     window.onload = function() {
         let total = 34;
-        // LOAD PICTURES TO THE PAGE
         let gallery = document.getElementsByClassName('gallery')[0];
-        // let path = "../../assets/photos/";
+        let root_styles = getComputedStyle(document.body);
+        let height = parseInt(root_styles.getPropertyValue('--height'));
+        let ratio = parseFloat(root_styles.getPropertyValue('--ratio'));
+        let grid_size = parseInt(root_styles.getPropertyValue('--grid-size'));
+        let width = height * ratio;
+        console.log(height, ratio, width);
         let path = "https://ik.imagekit.io/indspirit/";
-        let bl = ".jpg?tr=bl-10,h-250px";
-        let jpg = ".jpg?tr=h-400";
-        let preview = ".jpg?tr=h-12:h-250";
+        let jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`;
+        let preview = `.jpg?tr=h-5:h-${height},w-${width}`;
 
         //CREATE PLACEHOLDERS
         function create_placeholders() {
@@ -39,64 +42,6 @@
                 setTimeout(function() {
                     placeholder.classList.remove('opacity')
                 }, 1000);
-            }
-        }
-
-        //RESIZE SOME OF THE IMAGES
-        function resize() {
-            for (let i = 1; i < total; i++) {
-                let img = document.getElementById(i);
-                console.log(img, parseInt(img.offsetWidth), parseInt(img.offsetHeight));
-                if ((img.offsetWidth / img.offsetHeight) > 1.7 || (img.offsetWidth / img.offsetHeight) < 0.7) {
-                    img.style.height = `${(parseInt(img.offsetHeight) * 2)}px`;
-                    //document.body.prepend(img);
-                    console.log(true);
-                }
-            }
-        }
-
-        //MOVE SMALL PHOTOS TO THE END
-        function move_small() {
-            let collection = gallery.children;
-            var arr = Array.prototype.slice.call(collection);
-            for (let i = 1; i < arr.length; i++) {
-                if (arr[i].offsetWidth < 200) {
-                    gallery.append(arr[i]);
-                    move(arr, i, arr.length - 1)
-                }
-            }
-        }
-
-        //CALCULATE EMPTY SPACES TO FILL THEM
-        function fill_with_photos() {
-            let countRows = 0;
-
-            for (let i = 1; i < total - 1; i++) {
-                let img = document.getElementById(i);
-                let second = document.getElementById(`${i + 1}`)
-                let img_before_empty;
-
-                let offsetright = parseInt(gallery.offsetWidth - img.offsetLeft - img.offsetWidth);
-
-                // IF THE MARGIN FROM THE LAST PICTURE IN THE LINE TO THE RIGHT END OF THE PAGE IS TOO BIG WE DO SMTH 
-                if (parseFloat(img.offsetTop) < parseFloat(second.offsetTop)) {
-                    countRows++;
-                    if (offsetright > 200) {
-                        //console.log(offsetright, img, "row:", countRows);
-                        img_before_empty = img;
-                        //WE SEARCH FOR THE IMAGE WITH WIDTH LESS THEN MARGIN TO MOVE IN
-                        for (i = i + 1; i < total; i++) {
-                            let img = document.getElementById(i);
-
-                            if (img.offsetWidth < (offsetright - 30)) {
-                                console.log('img fit:', i, img, img.offsetWidth, offsetright);
-                                img_before_empty.after(img);
-                                i--;
-                                break;
-                            }
-                        }
-                    }
-                }
             }
         }
 
@@ -120,6 +65,24 @@
             }
         }
 
+        //RECALCULATE GALLERY WIDTH
+        function adapth_images_width() {
+            //let offsetright = parseInt(gallery.offsetWidth - img.offsetLeft - img.offsetWidth);
+            let images_in_line = parseFloat(gallery.offsetWidth / width);
+            console.log(gallery.offsetWidth, width, images_in_line);
+            console.log(parseFloat(images_in_line - Math.trunc(images_in_line)));
+            if (parseFloat(images_in_line - Math.trunc(images_in_line)) > 0.7) {
+                console.log((width * (parseInt(images_in_line) + 1)));
+                width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line + 1));
+                console.log('width and float width / ratio:', width, parseFloat(width / ratio));
+                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
+            } else if (parseFloat(images_in_line - Math.trunc(images_in_line)) < 0.6) {
+                width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line));
+                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
+            }
+        }
+
+        adapth_images_width();
         create_placeholders();
         create_images();
     }
