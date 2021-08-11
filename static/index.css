@@ -6,6 +6,7 @@
     --square-padding: calc((100vh - var(--square)) / 2);
     cursor: crosshair;
     user-select: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {

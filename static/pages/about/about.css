@@ -10,6 +10,7 @@
     --padding: calc((100vh - var(--bg-size)) / 2);
     cursor: crosshair;
     user-select: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
