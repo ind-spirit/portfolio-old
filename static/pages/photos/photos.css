@@ -65,7 +65,9 @@ img:hover {
     justify-content: center;
     opacity: 70%;
 }
-
+.vertical {
+    display: none;
+}
 .back {
     position: relative;
     margin: 7px auto 0;
@@ -74,4 +76,30 @@ img:hover {
     text-decoration: none;
     font-family: Octarine;
     cursor: default;
+}
+
+@media screen and (max-aspect-ratio: 8/11) {
+    .gallery {
+        max-width: 99vw;
+        margin: 0.5vh 0.5vw;
+    }
+    .fixed {
+        width: 100vw;
+        height: 4.5vh;
+        left: 0;
+    }
+    img {
+        width: 100%;
+        filter: grayscale(0);
+    }
+    .back {
+        margin: auto;
+    }
+    .horizontal {
+        display: none;
+    }
+    .vertical {
+        display: block;
+    }
+
 }

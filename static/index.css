@@ -107,7 +107,7 @@ a:after {
 a:hover:after, a:focus:after {
     width: 100%;
 }
-
+/* tablets */
 @media screen and (max-aspect-ratio: 11/10) {
      :root {
         --square: 70vw;
@@ -125,7 +125,7 @@ a:hover:after, a:focus:after {
         font-size: 3vw;
     }
 }
-
+/* phones */
 @media screen and (max-aspect-ratio: 8/11) {
      :root {
         --square: 78vw;
@@ -152,6 +152,12 @@ a:hover:after, a:focus:after {
         display: block;
         position: absolute;
         width: 100vw;
+
+        animation: fadein 2s;
+    }
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 }
 
