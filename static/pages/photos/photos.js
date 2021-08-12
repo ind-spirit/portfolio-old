@@ -67,16 +67,14 @@
 
         //RECALCULATE GALLERY WIDTH
         function adapth_images_width() {
-            //let offsetright = parseInt(gallery.offsetWidth - img.offsetLeft - img.offsetWidth);
             let images_in_line = parseFloat(gallery.offsetWidth / width);
-            console.log(gallery.offsetWidth, width, images_in_line);
-            console.log(parseFloat(images_in_line - Math.trunc(images_in_line)));
+            //IF THERE IS A LOT OF FREE SPACE LEFT
             if (parseFloat(images_in_line - Math.trunc(images_in_line)) > 0.7) {
-                console.log((width * (parseInt(images_in_line) + 1)));
+                //WE PUT ONE MORE IMAGE IN A LINE
                 width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line + 1));
-                console.log('width and float width / ratio:', width, parseFloat(width / ratio));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             } else if (parseFloat(images_in_line - Math.trunc(images_in_line)) < 0.6) {
+                //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
                 width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
