@@ -22,12 +22,13 @@
         let root_styles = getComputedStyle(document.body);
         let height = parseInt(root_styles.getPropertyValue('--height'));
         let ratio = parseFloat(root_styles.getPropertyValue('--ratio'));
+        let fullscreen_size = parseFloat(root_styles.getPropertyValue('--fullscreen-size'));
         let grid_size = parseInt(root_styles.getPropertyValue('--grid-size'));
         let width = height * ratio;
-        console.log(height, ratio, width);
         let path = "https://ik.imagekit.io/indspirit/";
         let jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`;
         let preview = `.jpg?tr=h-5:h-${height},w-${width}`;
+        let fullscreen_src = `.jpg?tr=w-${fullscreen_size},h-${fullscreen_size},c-at_max`;
 
         //CREATE PLACEHOLDERS
         function create_placeholders() {
@@ -79,8 +80,58 @@
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
+        //OPEN IMAGE ON A FULLSREEN ONCLICK
+        function fullscreen_onclick() {
+            let collection = gallery.children;
+            let arr = Array.prototype.slice.call(collection);
+           
+            for (let i = 0; i < arr.length; i++) {
+                arr[i].addEventListener('click', function() {
+                    document.getElementsByClassName('back')[0].style.opacity = '100'
+                    arr.forEach(el => {
+                        el.classList.add('disabled');
+                    })
+                    arr[i].classList.add('opacity')
+                    gallery.classList.add('fullscreen-gallery');
+                    arr[i].src = `${path + (i + 1) + fullscreen_src}`;
+                    arr[i].classList.remove('disabled');
+                    arr[i].onload = function() {
+                        arr[i].classList.add('fullscreen-image');
+                        arr[i].style.transition = 'opacity 0.5s linear';
+                        arr[i].classList.remove('opacity')
+                    }
+                });
+            };
+        }
+
+        function back_to_grid() {
+            let collection = gallery.children;
+            let arr = Array.prototype.slice.call(collection);
+            let back = document.getElementsByClassName('back')[0];
+            back.addEventListener('click', function(e) {
+                document.getElementsByClassName('back')[0].style.opacity = '0'
+                let fullscreen_image = document.getElementsByClassName('fullscreen-image')[0];
+                gallery.classList.remove('fullscreen-gallery');
+                fullscreen_image.classList.remove('fullscreen-image');
+                console.log(arr);
+                for (let i = 0; i < arr.length; i++) {
+                    arr[i].style.transition = 'opacity 0.5s linear';
+                    arr[i].classList.add('opacity')
+                    arr[i].classList.remove('disabled');
+                    setTimeout(function() {
+                        arr[i].classList.remove('opacity')
+                        setTimeout(function() {
+                            arr[i].style.transition = '0s';
+                        }, 50);
+                    }, 50);
+                }
+            });
+        };
+
 
         adapth_images_width();
         create_placeholders();
         create_images();
+        fullscreen_onclick();
+        back_to_grid();
     }
