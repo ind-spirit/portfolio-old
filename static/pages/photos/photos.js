@@ -1,23 +1,5 @@
-    //MOVES ELEMENT IN ARRAY IN A NEW POSITION
-    function move(arr, old_index, new_index) {
-        while (old_index < 0) {
-            old_index += arr.length;
-        }
-        while (new_index < 0) {
-            new_index += arr.length;
-        }
-        if (new_index >= arr.length) {
-            var k = new_index - arr.length;
-            while ((k--) + 1) {
-                arr.push(undefined);
-            }
-        }
-        arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-        return arr;
-    }
-
     window.onload = function() {
-        let total = 34;
+        let total = 36;
         let gallery = document.getElementsByClassName('gallery')[0];
         let root_styles = getComputedStyle(document.body);
         let height = parseInt(root_styles.getPropertyValue('--height'));
@@ -29,6 +11,8 @@
         let jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`;
         let preview = `.jpg?tr=h-5:h-${height},w-${width}`;
         let fullscreen_src = `.jpg?tr=w-${fullscreen_size},h-${fullscreen_size},c-at_max`;
+        let cubic;
+        let cubic1;
 
         //CREATE PLACEHOLDERS
         function create_placeholders() {
@@ -73,12 +57,12 @@
             //IF THERE IS A LOT OF FREE SPACE LEFT
             if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
                 //WE PUT ONE MORE IMAGE IN A LINE
-                width = parseFloat((gallery.offsetWidth - 35) / parseInt(images_in_line + 1));
+                width = parseFloat(((gallery.offsetWidth - (5.5 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
                 alert('if')
             } else if (0.7 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
                 //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
-                width = parseFloat((gallery.offsetWidth - 35) / parseInt(images_in_line));
+                width = parseFloat(((gallery.offsetWidth - (5.5 * parseInt(images_in_line))) / parseInt(images_in_line)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
@@ -102,32 +86,49 @@
                         setTimeout(function() {
                             fs.classList.add('flip-back-animation');
                         }, 1);
-
                     }, { once: true });
+                    
+                    fs.addEventListener("transitionend", () => {
+                        cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
+                        console.log(cubic);
+                        console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
+                        fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
+                        console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
+                        gallery.style.transition = cubic;
+                    }, { once: true })
                 });
             };
         }
 
+        //RETURN TO GRID LAYOUT
         function back_to_grid() {
-            let collection = gallery.children;
-            let arr = Array.prototype.slice.call(collection);
             let back = document.getElementsByClassName('back')[0];
             let fs = document.getElementsByClassName('fs')[0];
             back.addEventListener('click', function(e) {
-                back.classList.add('opacity')
+                fs.addEventListener("transitionend", () => {
+                    fs.classList.add('none')
+                    gallery.classList.remove('none')
+                    setTimeout(function() {
+                        gallery.classList.remove('flip-animation');
+                    }, 1);
+                }, { once: true });
+
+                gallery.addEventListener("transitionend", () => {
+                    cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
+                    console.log(cubic);
+                    console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
+                    fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
+                    console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
+                    gallery.style.transition = cubic;
+                }, { once: true })
+                
                 back.addEventListener('transitionend', () => {
                     back.classList.add('none');
                     back.classList.remove('opacity')
                 }, { once: true });
 
+                back.classList.add('opacity')
                 fs.classList.remove('flip-back-animation');
-                fs.addEventListener("transitionend", () => {
-                    gallery.classList.remove('none')
-                    fs.classList.add('none')
-                    setTimeout(function() {
-                        gallery.classList.remove('flip-animation');
-                    }, 1);
-                }, { once: true });
             });
         };
 
