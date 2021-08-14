@@ -80,26 +80,26 @@
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
+
         //OPEN IMAGE ON A FULLSREEN ONCLICK
         function fullscreen_onclick() {
             let collection = gallery.children;
             let arr = Array.prototype.slice.call(collection);
-           
+            let fs = document.getElementsByClassName('fs')[0];
+            let fs_image = document.getElementsByClassName('fs-image')[0];
+
             for (let i = 0; i < arr.length; i++) {
                 arr[i].addEventListener('click', function() {
-                    document.getElementsByClassName('back')[0].style.opacity = '100'
-                    arr.forEach(el => {
-                        el.classList.add('disabled');
-                    })
-                    arr[i].classList.add('opacity')
-                    gallery.classList.add('fullscreen-gallery');
-                    arr[i].src = `${path + (i + 1) + fullscreen_src}`;
-                    arr[i].classList.remove('disabled');
-                    arr[i].onload = function() {
-                        arr[i].classList.add('fullscreen-image');
-                        arr[i].style.transition = 'opacity 0.5s linear';
-                        arr[i].classList.remove('opacity')
-                    }
+                    document.getElementsByClassName('back')[0].style.display = 'unset'
+                    fs_image.src = `${path + (i + 1) + fullscreen_src}`;
+                    gallery.classList.add('flip-animation');
+                    gallery.addEventListener("transitionend", () => {
+                        gallery.classList.add('none')
+                        fs.classList.remove('none')
+                        setTimeout(function() {
+                            fs.classList.add('flip-back-animation');
+                        }, 1);
+                    }, {once:true});
                 });
             };
         }
@@ -108,23 +108,18 @@
             let collection = gallery.children;
             let arr = Array.prototype.slice.call(collection);
             let back = document.getElementsByClassName('back')[0];
+            let fs = document.getElementsByClassName('fs')[0];
             back.addEventListener('click', function(e) {
-                document.getElementsByClassName('back')[0].style.opacity = '0'
-                let fullscreen_image = document.getElementsByClassName('fullscreen-image')[0];
-                gallery.classList.remove('fullscreen-gallery');
-                fullscreen_image.classList.remove('fullscreen-image');
-                console.log(arr);
-                for (let i = 0; i < arr.length; i++) {
-                    arr[i].style.transition = 'opacity 0.5s linear';
-                    arr[i].classList.add('opacity')
-                    arr[i].classList.remove('disabled');
+                //document.getElementsByClassName('back')[0].style.display = 'none'
+                
+                fs.classList.remove('flip-back-animation');
+                fs.addEventListener("transitionend", () => {
+                    gallery.classList.remove('none')
+                    fs.classList.add('none')
                     setTimeout(function() {
-                        arr[i].classList.remove('opacity')
-                        setTimeout(function() {
-                            arr[i].style.transition = '0s';
-                        }, 50);
-                    }, 50);
-                }
+                        gallery.classList.remove('flip-animation');
+                    }, 1);
+                }, {once: true});
             });
         };
 
