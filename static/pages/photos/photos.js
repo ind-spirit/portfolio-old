@@ -69,14 +69,16 @@
         //RECALCULATE GALLERY WIDTH
         function adapth_images_width() {
             let images_in_line = parseFloat(gallery.offsetWidth / width);
+
             //IF THERE IS A LOT OF FREE SPACE LEFT
-            if (parseFloat(images_in_line - Math.trunc(images_in_line)) > 0.7) {
+            if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
                 //WE PUT ONE MORE IMAGE IN A LINE
-                width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line + 1));
+                width = parseFloat((gallery.offsetWidth - 35) / parseInt(images_in_line + 1));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
-            } else if (parseFloat(images_in_line - Math.trunc(images_in_line)) < 0.6) {
+                alert('if')
+            } else if (0.7 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
                 //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
-                width = parseFloat((gallery.offsetWidth - 20) / parseInt(images_in_line));
+                width = parseFloat((gallery.offsetWidth - 35) / parseInt(images_in_line));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
@@ -87,19 +89,21 @@
             let arr = Array.prototype.slice.call(collection);
             let fs = document.getElementsByClassName('fs')[0];
             let fs_image = document.getElementsByClassName('fs-image')[0];
+            let back = document.getElementsByClassName('back')[0];
 
             for (let i = 0; i < arr.length; i++) {
                 arr[i].addEventListener('click', function() {
-                    document.getElementsByClassName('back')[0].style.display = 'unset'
                     fs_image.src = `${path + (i + 1) + fullscreen_src}`;
                     gallery.classList.add('flip-animation');
                     gallery.addEventListener("transitionend", () => {
                         gallery.classList.add('none')
+                        back.classList.remove('none')
                         fs.classList.remove('none')
                         setTimeout(function() {
                             fs.classList.add('flip-back-animation');
                         }, 1);
-                    }, {once:true});
+
+                    }, { once: true });
                 });
             };
         }
@@ -110,8 +114,12 @@
             let back = document.getElementsByClassName('back')[0];
             let fs = document.getElementsByClassName('fs')[0];
             back.addEventListener('click', function(e) {
-                //document.getElementsByClassName('back')[0].style.display = 'none'
-                
+                back.classList.add('opacity')
+                back.addEventListener('transitionend', () => {
+                    back.classList.add('none');
+                    back.classList.remove('opacity')
+                }, { once: true });
+
                 fs.classList.remove('flip-back-animation');
                 fs.addEventListener("transitionend", () => {
                     gallery.classList.remove('none')
@@ -119,7 +127,7 @@
                     setTimeout(function() {
                         gallery.classList.remove('flip-animation');
                     }, 1);
-                }, {once: true});
+                }, { once: true });
             });
         };
 
