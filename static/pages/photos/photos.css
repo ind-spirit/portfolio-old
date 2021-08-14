@@ -23,17 +23,15 @@ body {
     -webkit-perspective: 2000px;  
     overflow: hidden;
 }
-
 a {
     cursor: default;
 }
-
 .gallery {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     align-items: center;
-    max-width: 97vw;
+    width: 97vw;
     height: 100vh;
     margin: 0.2vh 0 0 3vw;
     overflow-y: scroll;
@@ -53,7 +51,14 @@ img {
     transition: filter 1.9s ease-in-out;
     transition: opacity 0.8s linear;
 }
+img[data-src] {
+    filter: grayscale(100%) blur(20px);
+}
 
+img:hover {
+    filter: grayscale(0);
+    cursor: default;
+}
 .fs-image {
     object-fit: contain;
     height: unset;
@@ -86,17 +91,10 @@ img {
 .none {
     display: none;
 }
-img[data-src] {
-    filter: grayscale(100%) blur(20px);
-}
 
-img:hover {
-    filter: grayscale(0);
-    cursor: default;
-}
 
 .opacity {
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 .fixed {
@@ -115,8 +113,8 @@ img:hover {
 }
 
 .back {
-    display: none;
     transition: opacity 0.5s linear;
+    opacity: 100%;
     animation: fadein 0.8s;
 }
 
