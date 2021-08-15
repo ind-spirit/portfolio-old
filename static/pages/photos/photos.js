@@ -4,13 +4,15 @@
         let root_styles = getComputedStyle(document.body);
         let height = parseInt(root_styles.getPropertyValue('--height'));
         let ratio = parseFloat(root_styles.getPropertyValue('--ratio'));
-        let fullscreen_size = parseFloat(root_styles.getPropertyValue('--fullscreen-size'));
+        let fs_size = parseFloat(root_styles.getPropertyValue('--fullscreen-size'));
         let grid_size = parseInt(root_styles.getPropertyValue('--grid-size'));
         let width = height * ratio;
         let path = "https://ik.imagekit.io/indspirit/";
         let jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`;
         let preview = `.jpg?tr=h-5:h-${height},w-${width}`;
-        let fullscreen_src = `.jpg?tr=w-${fullscreen_size},h-${fullscreen_size},c-at_max`;
+        let fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`;
+        //!!!
+        let fs_preview = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`;
         let cubic;
         let cubic1;
 
@@ -77,7 +79,8 @@
 
             for (let i = 0; i < arr.length; i++) {
                 arr[i].addEventListener('click', function() {
-                    fs_image.src = `${path + (i + 1) + fullscreen_src}`;
+
+                    fs_image.src = `${path + (i + 1) + fs_src}`;
                     gallery.classList.add('flip-animation');
                     gallery.addEventListener("transitionend", () => {
                         gallery.classList.add('none')
@@ -90,10 +93,7 @@
                     
                     fs.addEventListener("transitionend", () => {
                         cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
-                        console.log(cubic);
-                        console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
                         fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
-                        console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
                         gallery.style.transition = cubic;
                     }, { once: true })
                 });
@@ -115,13 +115,10 @@
 
                 gallery.addEventListener("transitionend", () => {
                     cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
-                    console.log(cubic);
-                    console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
                     fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
-                    console.log(window.getComputedStyle(gallery, null).getPropertyValue("transition"));
                     gallery.style.transition = cubic;
                 }, { once: true })
-                
+
                 back.addEventListener('transitionend', () => {
                     back.classList.add('none');
                     back.classList.remove('opacity')
