@@ -13,7 +13,8 @@
 
 body {
     background-color: var(--bg);
-    font-family: Octarine;
+    /* font-family: Octarine; */
+    font-family: 'Righteous', cursive;
     font-size: 4vh;
     font-weight: 300;
     color: var(--text);
@@ -25,31 +26,38 @@ body {
 }
 
 a {
+    text-decoration: none;
+}
+
+a, img {
     cursor: default;
 }
 
 .gallery {
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 2;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     align-items: center;
-    width: 97vw;
-    height: 100vh;
-    margin: 0.2vh 0 0 3vw;
-    overflow-y: scroll;
-    transition: transform 1s cubic-bezier(.4,.34,1,.56) 0s;
+    width: 100vw;
+    height: 99.7vh;
+    margin: 0.2vh 0 0 0;
+    background-color: var(--bg);
+    backface-visibility: hidden;
+    pointer-events: none;
 }
 
-.gallery img, .fs img{
+.gallery img {
     display: inline;
     object-fit: cover;
     height: var(--height);
     width: calc( var(--height) * var(--ratio));
     filter: grayscale(100%);
     padding: 1.3px;
-    transition-delay: 100ms;
-    transition: filter 1.9s ease-in-out;
-    transition: opacity 0.8s linear;
+    animation-delay: 500ms;
+    animation: image-in 2.5s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
 }
 
 .gallery img[data-src] {
@@ -58,88 +66,136 @@ a {
 
 .gallery img:hover {
     filter: grayscale(0);
-    cursor: default;
 }
 
-.fs .fs-image {
+.fs-image {
+    display: inline;
     object-fit: contain;
     height: unset;
     width: unset;
     max-width: 90vw;
     max-height: 90vh;
-    display: inline;
     filter: grayscale(0);
 }
 
-.flip-animation {
-    transform: rotateY(90deg) rotateX(45deg);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
+.visible {
+    pointer-events: unset;
 }
 
-.flip-back-animation {
-    transform: rotateY(0deg) rotateX(0deg) !important;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
+.back-wrapper {
+    position: absolute;
+    width: 97vw;
+    height: 100vh;
+    background-color: var(--bg);
+    right: 0;
 }
 
 .fs {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 97vw;
-    height: 100vh;
-    transform: rotateY(-90deg) rotateX(-45deg);
-    transition: transform 1s cubic-bezier(.04,.66,.9,.94) 0s;
-}
-.none {
-    display: none !important;
-}
-.opacity {
-    opacity: 0 !important;
-}
-
-.fixed {
-    position: absolute;
-    width: 3vw;
-    height: 100vh;
-    left: 0;
-    bottom: 0;
-    background-color: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 9%;
-    opacity: 70%;
-}
-.fixed img {
+    transform: scale(-1, 1);
     width: 100%;
     height: 100%;
 }
-.back {
+
+.controls {
+    position: absolute;
+    top: calc(100vh - 200px);
+    left: 50px;
+    z-index: 10;
+    width: 150px;
+    height: 150px;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s linear;
-    opacity: 100%;
-    animation: fadein 0.8s;
-    width: 60%;
+    gap: 5%;
+    /* color: #c24329; */
+    color: #ec992a
 }
+
 .home-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     position: relative;
+    height: fit-content;
     width: 70%;
+    /* color: #c24329; */
+    color: #ec992a;
 }
-@keyframes fadein {
+
+.upend-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s linear;
+    opacity: 100%;
+    width: 50%;
+}
+
+.upend-btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+.upend-btn path {
+    fill: #ec992a;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+.animation {
+    animation: animation 1.5s;
+    animation-fill-mode: forwards;
+}
+
+.reverse-animation {
+    animation: reverse-animation 1.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animation {
     from {
-        opacity: 0;
+        transform: rotateY(0deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: rotateY(90deg) rotateX(-40deg);
+        animation-timing-function: ease-out;
     }
     to {
-        opacity: 1;
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes reverse-animation {
+    from {
+        transform: rotateY(180deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: rotateY(270deg) rotateX(40deg);
+        animation-timing-function: ease-out;
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes image-in {
+    from {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+    50% {
+        clip-path: polygon(0 0, 0 0, 100% 0, 0 100%);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 }
 
@@ -152,25 +208,35 @@ a {
     .gallery::-webkit-scrollbar {
         display: none;
     }
-    .fs {
-        height: 100vh;
-    }
-    .fixed {
+    .back-wrapper {
         width: 100vw;
-        height: 4.5vh;        
-        flex-direction: row;
     }
     .gallery img {
         width: 100%;
         filter: grayscale(0);
     }
-    .home-btn {
-        margin: 0;
-        height: 70%;
-        width: unset;
+    .controls {
+        position: absolute;
+        top: calc(100vh - 50px);
+        left: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 5%;
+        /* color: #c24329; */
+        color: #ec992a
     }
-    .back {
-        height: 70%;
+    .home-btn {
         width: unset;
+        height: 80%;
+        font-size: 40px;
+    }
+    .upend-btn {
+        width: unset;
+        height: 80%;
     }
 }

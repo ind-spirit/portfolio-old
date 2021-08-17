@@ -1,20 +1,26 @@
     window.onload = function() {
-        let total = 36;
-        let gallery = document.getElementsByClassName('gallery')[0];
-        let root_styles = getComputedStyle(document.body);
-        let height = parseInt(root_styles.getPropertyValue('--height'));
-        let ratio = parseFloat(root_styles.getPropertyValue('--ratio'));
-        let fs_size = parseFloat(root_styles.getPropertyValue('--fullscreen-size'));
-        let grid_size = parseInt(root_styles.getPropertyValue('--grid-size'));
-        let width = height * ratio;
-        let path = "https://ik.imagekit.io/indspirit/";
-        let jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`;
-        let preview = `.jpg?tr=h-5:h-${height},w-${width}`;
-        let fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`;
-        //!!!
-        let fs_preview = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`;
-        let cubic;
-        let cubic1;
+        let total = 36,
+            gallery = document.getElementsByClassName('gallery')[0],
+            collection,
+            arr,
+            back_wrapper = $('.back-wrapper')[0],
+            root_styles = getComputedStyle(document.body),
+            height = parseInt(root_styles.getPropertyValue('--height')),
+            ratio = parseFloat(root_styles.getPropertyValue('--ratio')),
+            fs_size = parseFloat(root_styles.getPropertyValue('--fullscreen-size')),
+            grid_size = parseInt(root_styles.getPropertyValue('--grid-size')),
+            width = height * ratio,
+            path = "https://ik.imagekit.io/indspirit/",
+            jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`,
+            preview = `.jpg?tr=h-5:h-${height},w-${width}`,
+            fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`,
+            //!!
+            fs_preview = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`,
+            upend_btn = document.getElementsByClassName('upend-btn')[0];
+
+        upend_btn.addEventListener('click', () => {
+            upend();
+        });
 
         //CREATE PLACEHOLDERS
         function create_placeholders() {
@@ -22,13 +28,9 @@
                 let placeholder = document.createElement('img');
                 placeholder.src = path + i + preview;
                 placeholder.setAttribute('data-src', `${path + i + jpg}`);
-                placeholder.classList.add('opacity')
                 placeholder.alt = "photo";
                 placeholder.id = i;
                 gallery.append(placeholder);
-                setTimeout(function() {
-                    placeholder.classList.remove('opacity')
-                }, 1000);
             }
         }
 
@@ -38,24 +40,22 @@
                 let img = document.createElement('img');
                 let placeholder = document.getElementById(i);
                 img.src = path + i + jpg;
-                img.onload = function() {
+                img.onload = () => {
                     // add a small timeout to allow the transition when the image is already in memory
                     setTimeout(() => {
                         // replace the placeholder src with the full image src
                         placeholder.src = img.src;
                         placeholder.removeAttribute("data-src");
-                        setTimeout(() => {
-                            placeholder.style.transition = '0s';
-                        }, 1000);
-                    }, 200);
+                    }, 1);
                 }
             }
+            collection = gallery.children;
+            arr = Array.prototype.slice.call(collection);
         }
 
         //RECALCULATE GALLERY WIDTH
         function adapth_images_width() {
             let images_in_line = parseFloat(gallery.offsetWidth / width);
-
             //IF THERE IS A LOT OF FREE SPACE LEFT
             if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
                 //WE PUT ONE MORE IMAGE IN A LINE
@@ -69,70 +69,48 @@
             }
         }
 
+
+
         //OPEN IMAGE ON A FULLSREEN ONCLICK
         function fullscreen_onclick() {
-            let collection = gallery.children;
-            let arr = Array.prototype.slice.call(collection);
-            let fs = document.getElementsByClassName('fs')[0];
             let fs_image = document.getElementsByClassName('fs-image')[0];
-            let back = document.getElementsByClassName('back')[0];
-
             for (let i = 0; i < arr.length; i++) {
                 arr[i].addEventListener('click', function() {
-
                     fs_image.src = `${path + (i + 1) + fs_src}`;
-                    gallery.classList.add('flip-animation');
-                    gallery.addEventListener("transitionend", () => {
-                        gallery.classList.add('none')
-                        back.classList.remove('none')
-                        fs.classList.remove('none')
-                        setTimeout(function() {
-                            fs.classList.add('flip-back-animation');
-                        }, 1);
-                    }, { once: true });
-                    
-                    fs.addEventListener("transitionend", () => {
-                        cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
-                        fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
-                        gallery.style.transition = cubic;
-                    }, { once: true })
+                    upend();
                 });
             };
         }
 
-        //RETURN TO GRID LAYOUT
-        function back_to_grid() {
-            let back = document.getElementsByClassName('back')[0];
-            let fs = document.getElementsByClassName('fs')[0];
-            back.addEventListener('click', function(e) {
-                fs.addEventListener("transitionend", () => {
-                    fs.classList.add('none')
-                    gallery.classList.remove('none')
-                    setTimeout(function() {
-                        gallery.classList.remove('flip-animation');
-                    }, 1);
-                }, { once: true });
-
-                gallery.addEventListener("transitionend", () => {
-                    cubic = window.getComputedStyle(fs, null).getPropertyValue("transition");
-                    fs.style.transition = window.getComputedStyle(gallery, null).getPropertyValue("transition");
-                    gallery.style.transition = cubic;
-                }, { once: true })
-
-                back.addEventListener('transitionend', () => {
-                    back.classList.add('none');
-                    back.classList.remove('opacity')
-                }, { once: true });
-
-                back.classList.add('opacity')
-                fs.classList.remove('flip-back-animation');
+        //UPEND GALLERY
+        function upend() {
+            $(upend_btn).addClass('unclickable');
+            $(gallery).one('animationend', () => {
+                $(gallery).toggleClass('visible')
+                $(back_wrapper).toggleClass('visible')
+                $(gallery).removeClass('unclickable');
+                $(upend_btn).removeClass('unclickable');
             });
-        };
 
+            if (gallery.classList.contains('visible')) {
+                back_wrapper.classList.add('animation')
+                gallery.classList.add('animation')
+                $(gallery).addClass('unclickable');
+            } else {
+                gallery.classList.add('reverse-animation')
+                back_wrapper.classList.add('reverse-animation')
+                $(gallery).addClass('unclickable');
+                $(gallery).one('animationend', () => {
+                    gallery.classList.remove('animation')
+                    back_wrapper.classList.remove('animation')
+                    gallery.classList.remove('reverse-animation')
+                    back_wrapper.classList.remove('reverse-animation')
+                });
+            }
+        }
 
         adapth_images_width();
         create_placeholders();
         create_images();
         fullscreen_onclick();
-        back_to_grid();
     }
