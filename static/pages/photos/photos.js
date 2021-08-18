@@ -1,5 +1,5 @@
     window.onload = function() {
-        let total = 45,
+        let total = 38,
             gallery = document.getElementsByClassName('gallery')[0],
             collection,
             arr,
@@ -31,9 +31,14 @@
                     total -= 1;
                 }
                 placeholder.setAttribute('data-src', `${path + i + jpg}`);
+                placeholder.classList.add('unclickable')
                 placeholder.alt = "photo";
                 placeholder.id = i;
                 gallery.append(placeholder);
+                placeholder.addEventListener('transitionend', () => {
+                    placeholder.style.transition = '0s'
+                    placeholder.classList.remove('unclickable')
+                }, { once: true })
             }
             collection = gallery.children;
             arr = Array.prototype.slice.call(collection);
@@ -64,10 +69,10 @@
             fs_image.setAttribute('data-src', `loading`);
             buffer.src = `${path + i+ fs_src}`;
             buffer.onload = () => {
+                fs_image.src = buffer.src;
                 setTimeout(() => {
-                    fs_image.src = buffer.src;
                     fs_image.removeAttribute('data-src')
-                }, 1);
+                }, 10);
             }
         }
 
@@ -102,18 +107,21 @@
         function imageIsLast() {
             let current_image_index = parseInt($('.fs-image')[0].id);
             if (current_image_index == 1) {
-                $(left_btn).hide();
+                left_btn.classList.add('opacity')
+                left_btn.classList.add('unclickable')
             } else if (current_image_index == total - 1) {
-                $(right_btn).hide();
+                right_btn.classList.add('opacity')
+                right_btn.classList.add('unclickable')
             } else {
-                $(left_btn).show();
-                $(right_btn).show();
+                left_btn.classList.remove('opacity')
+                right_btn.classList.remove('opacity')
+                left_btn.classList.remove('unclickable')
+                right_btn.classList.remove('unclickable')
             }
         }
 
         function lazyLoading() {
             const targets = document.querySelectorAll('div.gallery > img');
-            console.log(targets);
             const lazyLoad = target => {
                 const io = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
@@ -135,19 +143,16 @@
         }
 
 
-
-
-
-
         //calling functions
-
         adaptImagesWidth();
         createPlaceholders();
         lazyLoading();
-        
+
         gallery.addEventListener('transitionend', () => {
-            back_wrapper.classList.remove('opacity');
+            gallery.style.right = '0'
+            gallery.classList.remove('slideDown')
         }, { once: true })
+
         gallery.classList.add('slideDown')
 
         left_btn.addEventListener('click', () => {
@@ -175,6 +180,4 @@
                 upend();
             });
         };
-
-
     }

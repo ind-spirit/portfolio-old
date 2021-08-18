@@ -91,7 +91,7 @@ a, img {
     width: calc( var(--height) * var(--ratio));
     filter: grayscale(100%);
     padding: 1.3px;
-    transition: filter 1s ease-in-out;
+    transition: filter 0.7s ease-in-out;
     /* animation-delay: 500ms;
     animation: image-in 2.5s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards; */
 }
@@ -111,25 +111,18 @@ a, img {
     width: unset;
     max-width: 90%;
     max-height: 90%;
-    transition: 1s filter ease-in;
+    filter: blur(0px);
+    /* padding: 0 calc(40px + 3.2vw); */
+    transition: filter 1s ease-in;
 }
 
 .fs-image[data-src] {
     filter: blur(10px);
 }
 
-.back-btn {
-    position: absolute;
-    top: 94vh;
-    font-size: clamp(1rem, -0.0526rem + 5.2632vw, 3.5rem);
-    z-index: 11;
-    cursor: default;
-}
-
 .visible {
     pointer-events: unset;
 }
-
 .back-wrapper {
     position: absolute;
     width: 100vw;
@@ -137,36 +130,41 @@ a, img {
     background-color: var(--bg);
     left: 0;
 }
-
 .fs {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     transform: scale(-1, 1);
     width: 100%;
     height: 100%;
     background-color: var(--bg);
 }
-
-.control {
-    position: absolute;
+.fs-image-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 95%;
+    min-width: 80%;
+    width: 85%;
+    max-width: 98%;
+}
+.controls {
+    /* position: absolute; */
     cursor: default;
-    font-size: clamp(1rem, -0.0526rem + 5.2632vw, 3.5rem);
 }
-
-.left-btn {
-    left: 3vw;
-}
-
-.right-btn {
-    right: 3vw;
+.back-btn {
+    position: relative;
+    /* top: 94vh; */
+    z-index: 11;
+    cursor: default;
 }
 
 .unclickable {
     pointer-events: none;
 }
-
 .animation {
+    opacity: 100%;
     animation: animation 1.5s;
     animation-fill-mode: forwards;
 }
@@ -232,7 +230,7 @@ a, img {
         width: 100%;
         filter: grayscale(0);
     }
-    .controls {
+    /* .controls {
         position: absolute;
         top: calc(100vh - 50px);
         left: 0;
@@ -244,16 +242,7 @@ a, img {
         justify-content: space-evenly;
         align-items: center;
         gap: 5%;
-        /* color: #c24329; */
+        color: #c24329;
         color: #ec992a
-    }
-    .home-btn {
-        width: unset;
-        height: 80%;
-        font-size: 40px;
-    }
-    .upend-btn {
-        width: unset;
-        height: 80%;
-    }
+    } */
 }
