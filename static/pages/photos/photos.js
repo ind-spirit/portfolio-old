@@ -30,6 +30,7 @@
                 placeholder.alt = "photo";
                 placeholder.id = i;
                 gallery.append(placeholder);
+                $(placeholder).slideDown(1000);
             }
         }
 
@@ -48,7 +49,9 @@
                     setTimeout(() => {
                         // replace the placeholder src with the full image src
                         placeholder.src = img.src;
+                        
                         placeholder.removeAttribute("data-src");
+                        
                     }, 1);
                 }
             }
@@ -60,13 +63,13 @@
         function adaptImagesWidth() {
             let images_in_line = parseFloat(gallery.offsetWidth / width);
             //IF THERE IS A LOT OF FREE SPACE LEFT
-            if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
+            if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.6) {
                 //WE PUT ONE MORE IMAGE IN A LINE
-                width = parseFloat(((gallery.offsetWidth - (7 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
+                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
-            } else if (0.7 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
+            } else if (0.6 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
                 //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
-                width = parseFloat(((gallery.offsetWidth - (7 * parseInt(images_in_line))) / parseInt(images_in_line)));
+                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
