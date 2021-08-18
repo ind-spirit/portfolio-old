@@ -1,5 +1,5 @@
     window.onload = function() {
-        let total = 36,
+        let total = 38,
             gallery = document.getElementsByClassName('gallery')[0],
             collection,
             arr,
@@ -11,19 +11,18 @@
             grid_size = parseInt(root_styles.getPropertyValue('--grid-size')),
             width = height * ratio,
             path = "https://ik.imagekit.io/indspirit/",
-            jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto`,
-            preview = `.jpg?tr=h-5:h-${height},w-${width}`,
-            fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`,
-            //!!
-            fs_preview = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max`,
-            upend_btn = document.getElementsByClassName('upend-btn')[0];
+            jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto,f-auto`,
+            preview = `.jpg?tr=h-5:h-${height},w-${width},f-auto`,
+            fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max,f-auto`,
+            fs_preview = `.jpg?tr=h-5,c-at_least:w-${fs_size},h-${fs_size},c-at_least,f-auto`,
+            back_btn = document.getElementsByClassName('back-btn')[0],
+            left_btn = $('.left-btn')[0],
+            right_btn = $('.right-btn')[0];
 
-        upend_btn.addEventListener('click', () => {
-            upend();
-        });
+
 
         //CREATE PLACEHOLDERS
-        function create_placeholders() {
+        function createPlaceholders() {
             for (let i = 1; i < total; i++) {
                 let placeholder = document.createElement('img');
                 placeholder.src = path + i + preview;
@@ -34,12 +33,16 @@
             }
         }
 
-        //LOAD SEVERAL PICTURES
-        function create_images() {
+        //LOAD IMAGES INSTEAD OF PLACEHOLDERS
+        function createImages() {
             for (let i = 1; i < total; i++) {
                 let img = document.createElement('img');
                 let placeholder = document.getElementById(i);
                 img.src = path + i + jpg;
+                img.onerror = () => {
+                    placeholder.remove();
+                    total -= 1;
+                }
                 img.onload = () => {
                     // add a small timeout to allow the transition when the image is already in memory
                     setTimeout(() => {
@@ -54,14 +57,13 @@
         }
 
         //RECALCULATE GALLERY WIDTH
-        function adapth_images_width() {
+        function adaptImagesWidth() {
             let images_in_line = parseFloat(gallery.offsetWidth / width);
             //IF THERE IS A LOT OF FREE SPACE LEFT
             if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
                 //WE PUT ONE MORE IMAGE IN A LINE
                 width = parseFloat(((gallery.offsetWidth - (5.5 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
-                alert('if')
             } else if (0.7 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
                 //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
                 width = parseFloat(((gallery.offsetWidth - (5.5 * parseInt(images_in_line))) / parseInt(images_in_line)));
@@ -69,27 +71,31 @@
             }
         }
 
-
-
-        //OPEN IMAGE ON A FULLSREEN ONCLICK
-        function fullscreen_onclick() {
+        function loadFSimage(el) {
             let fs_image = document.getElementsByClassName('fs-image')[0];
-            for (let i = 0; i < arr.length; i++) {
-                arr[i].addEventListener('click', function() {
-                    fs_image.src = `${path + (i + 1) + fs_src}`;
-                    upend();
-                });
-            };
+            let buffer = document.createElement('img');
+            let i = parseInt(el.id);
+            fs_image.src = ``;
+            fs_image.src = `${path + i + fs_preview}`;
+            fs_image.id = el.id;
+            fs_image.setAttribute('data-src', `loading`);
+            buffer.src = `${path + i+ fs_src}`;
+            buffer.onload = () => {
+                setTimeout(() => {
+                    fs_image.src = buffer.src;
+                    fs_image.removeAttribute('data-src')
+                }, 1);
+            }
         }
 
         //UPEND GALLERY
         function upend() {
-            $(upend_btn).addClass('unclickable');
+            $(back_btn).addClass('unclickable');
             $(gallery).one('animationend', () => {
                 $(gallery).toggleClass('visible')
                 $(back_wrapper).toggleClass('visible')
                 $(gallery).removeClass('unclickable');
-                $(upend_btn).removeClass('unclickable');
+                $(back_btn).removeClass('unclickable');
             });
 
             if (gallery.classList.contains('visible')) {
@@ -109,8 +115,49 @@
             }
         }
 
-        adapth_images_width();
-        create_placeholders();
-        create_images();
-        fullscreen_onclick();
+        //CHECK IF THE IMAGE IS LAST AND HIDE AN ARROW
+        function imageIsLast() {
+            let current_image_index = parseInt($('.fs-image')[0].id);
+            if (current_image_index == 1) {
+                $(left_btn).hide();
+            } else if (current_image_index == total - 1) {
+                $(right_btn).hide();
+            } else {
+                $(left_btn).show();
+                $(right_btn).show();
+            }
+        }
+
+        //calling functions
+
+        adaptImagesWidth();
+        createPlaceholders();
+        createImages();
+
+        
+        left_btn.addEventListener('click', () => {
+            let current_image_index = parseInt($('.fs-image')[0].id);
+            let left_image = $(`#${current_image_index - 1}`)[0];
+            loadFSimage(left_image);
+            imageIsLast();
+        });
+
+        right_btn.addEventListener('click', () => {
+            let current_image_index = parseInt($('.fs-image')[0].id);
+            let right_image = $(`#${current_image_index + 1}`)[0];
+            loadFSimage(right_image);
+            imageIsLast();
+        });
+
+        back_btn.addEventListener('click', () => {
+            upend();
+        });
+
+        for (let i = 0; i < arr.length; i++) {
+            arr[i].addEventListener('click', (event) => {
+                loadFSimage(event.target);
+                imageIsLast();
+                upend();
+            });
+        };
     }
