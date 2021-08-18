@@ -62,11 +62,11 @@
             //IF THERE IS A LOT OF FREE SPACE LEFT
             if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.7) {
                 //WE PUT ONE MORE IMAGE IN A LINE
-                width = parseFloat(((gallery.offsetWidth - (6.8 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
+                width = parseFloat(((gallery.offsetWidth - (7 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             } else if (0.7 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
                 //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
-                width = parseFloat(((gallery.offsetWidth - (6.8 * parseInt(images_in_line))) / parseInt(images_in_line)));
+                width = parseFloat(((gallery.offsetWidth - (7 * parseInt(images_in_line))) / parseInt(images_in_line)));
                 document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
             }
         }
