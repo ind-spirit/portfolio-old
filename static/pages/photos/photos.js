@@ -26,31 +26,19 @@
             for (let i = 1; i < total; i++) {
                 let placeholder = document.createElement('img');
                 placeholder.src = path + i + preview;
-                placeholder.setAttribute('data-src', `${path + i + jpg}`);
-                placeholder.alt = "photo";
-                placeholder.id = i;
-                gallery.append(placeholder);
-            }
-        }
-
-        //LOAD IMAGES INSTEAD OF PLACEHOLDERS
-        function createImages() {
-            for (let i = 1; i < total; i++) {
-                let img = document.createElement('img');
-                let placeholder = document.getElementById(i);
-                img.src = path + i + jpg;
-                img.onerror = () => {
+                placeholder.onerror = () => {
                     placeholder.remove();
                     total -= 1;
                 }
-                img.onload = () => {
-                    // add a small timeout to allow the transition when the image is already in memory
-                    setTimeout(() => {
-                        // replace the placeholder src with the full image src
-                        placeholder.src = img.src;
-                        placeholder.removeAttribute("data-src");
-                    }, 1);
-                }
+                placeholder.setAttribute('data-src', `${path + i + jpg}`);
+                placeholder.classList.add('unclickable')
+                placeholder.alt = "photo";
+                placeholder.id = i;
+                gallery.append(placeholder);
+                placeholder.addEventListener('transitionend', () => {
+                    placeholder.style.transition = '0s'
+                    placeholder.classList.remove('unclickable')
+                }, { once: true })
             }
             collection = gallery.children;
             arr = Array.prototype.slice.call(collection);
@@ -81,10 +69,10 @@
             fs_image.setAttribute('data-src', `loading`);
             buffer.src = `${path + i+ fs_src}`;
             buffer.onload = () => {
+                fs_image.src = buffer.src;
                 setTimeout(() => {
-                    fs_image.src = buffer.src;
                     fs_image.removeAttribute('data-src')
-                }, 1);
+                }, 10);
             }
         }
 
@@ -119,31 +107,29 @@
         function imageIsLast() {
             let current_image_index = parseInt($('.fs-image')[0].id);
             if (current_image_index == 1) {
-                $(left_btn).hide();
+                left_btn.classList.add('opacity')
+                left_btn.classList.add('unclickable')
             } else if (current_image_index == total - 1) {
-                $(right_btn).hide();
+                right_btn.classList.add('opacity')
+                right_btn.classList.add('unclickable')
             } else {
-                $(left_btn).show();
-                $(right_btn).show();
+                left_btn.classList.remove('opacity')
+                right_btn.classList.remove('opacity')
+                left_btn.classList.remove('unclickable')
+                right_btn.classList.remove('unclickable')
             }
         }
 
         function lazyLoading() {
             const targets = document.querySelectorAll('div.gallery > img');
-
             const lazyLoad = target => {
                 const io = new IntersectionObserver((entries, observer) => {
-                    console.log(entries)
                     entries.forEach(entry => {
-                        console.log('😍');
-
                         if (entry.isIntersecting) {
                             const img = entry.target;
                             const src = img.getAttribute('data-src');
-
                             img.setAttribute('src', src);
                             //ADD TRANSITION EFFECT
-                            img.classList.add('padding')
                             setTimeout(() => {
                                 img.removeAttribute("data-src");
                             }, 1);
@@ -151,26 +137,22 @@
                         }
                     });
                 });
-
                 io.observe(target)
             };
             targets.forEach(lazyLoad);
         }
 
 
-
-
-
-
         //calling functions
-
         adaptImagesWidth();
         createPlaceholders();
         lazyLoading();
-        //createImages();
+
         gallery.addEventListener('transitionend', () => {
-            back_wrapper.classList.remove('opacity');
+            gallery.style.right = '0'
+            gallery.classList.remove('slideDown')
         }, { once: true })
+
         gallery.classList.add('slideDown')
 
         left_btn.addEventListener('click', () => {
@@ -198,6 +180,4 @@
                 upend();
             });
         };
-
-
     }
