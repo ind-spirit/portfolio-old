@@ -30,7 +30,6 @@
                 placeholder.alt = "photo";
                 placeholder.id = i;
                 gallery.append(placeholder);
-                $(placeholder).slideDown(1000);
             }
         }
 
@@ -49,9 +48,7 @@
                     setTimeout(() => {
                         // replace the placeholder src with the full image src
                         placeholder.src = img.src;
-                        
                         placeholder.removeAttribute("data-src");
-                        
                     }, 1);
                 }
             }
@@ -131,13 +128,51 @@
             }
         }
 
+        function lazyLoading() {
+            const targets = document.querySelectorAll('div.gallery > img');
+
+            const lazyLoad = target => {
+                const io = new IntersectionObserver((entries, observer) => {
+                    console.log(entries)
+                    entries.forEach(entry => {
+                        console.log('😍');
+
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+
+                            img.setAttribute('src', src);
+                            //ADD TRANSITION EFFECT
+                            img.classList.add('padding')
+                            setTimeout(() => {
+                                img.removeAttribute("data-src");
+                            }, 1);
+                            observer.disconnect();
+                        }
+                    });
+                });
+
+                io.observe(target)
+            };
+            targets.forEach(lazyLoad);
+        }
+
+
+
+
+
+
         //calling functions
 
         adaptImagesWidth();
         createPlaceholders();
-        createImages();
+        lazyLoading();
+        //createImages();
+        gallery.addEventListener('transitionend', () => {
+            back_wrapper.classList.remove('opacity');
+        }, { once: true })
+        gallery.classList.add('slideDown')
 
-        
         left_btn.addEventListener('click', () => {
             let current_image_index = parseInt($('.fs-image')[0].id);
             let left_image = $(`#${current_image_index - 1}`)[0];
@@ -163,4 +198,6 @@
                 upend();
             });
         };
+
+
     }
