@@ -1,5 +1,5 @@
     window.onload = function() {
-        let total = 38,
+        let total = 45,
             gallery = document.getElementsByClassName('gallery')[0],
             collection,
             arr,
@@ -26,31 +26,14 @@
             for (let i = 1; i < total; i++) {
                 let placeholder = document.createElement('img');
                 placeholder.src = path + i + preview;
+                placeholder.onerror = () => {
+                    placeholder.remove();
+                    total -= 1;
+                }
                 placeholder.setAttribute('data-src', `${path + i + jpg}`);
                 placeholder.alt = "photo";
                 placeholder.id = i;
                 gallery.append(placeholder);
-            }
-        }
-
-        //LOAD IMAGES INSTEAD OF PLACEHOLDERS
-        function createImages() {
-            for (let i = 1; i < total; i++) {
-                let img = document.createElement('img');
-                let placeholder = document.getElementById(i);
-                img.src = path + i + jpg;
-                img.onerror = () => {
-                    placeholder.remove();
-                    total -= 1;
-                }
-                img.onload = () => {
-                    // add a small timeout to allow the transition when the image is already in memory
-                    setTimeout(() => {
-                        // replace the placeholder src with the full image src
-                        placeholder.src = img.src;
-                        placeholder.removeAttribute("data-src");
-                    }, 1);
-                }
             }
             collection = gallery.children;
             arr = Array.prototype.slice.call(collection);
@@ -130,20 +113,15 @@
 
         function lazyLoading() {
             const targets = document.querySelectorAll('div.gallery > img');
-
+            console.log(targets);
             const lazyLoad = target => {
                 const io = new IntersectionObserver((entries, observer) => {
-                    console.log(entries)
                     entries.forEach(entry => {
-                        console.log('😍');
-
                         if (entry.isIntersecting) {
                             const img = entry.target;
                             const src = img.getAttribute('data-src');
-
                             img.setAttribute('src', src);
                             //ADD TRANSITION EFFECT
-                            img.classList.add('padding')
                             setTimeout(() => {
                                 img.removeAttribute("data-src");
                             }, 1);
@@ -151,7 +129,6 @@
                         }
                     });
                 });
-
                 io.observe(target)
             };
             targets.forEach(lazyLoad);
@@ -167,7 +144,7 @@
         adaptImagesWidth();
         createPlaceholders();
         lazyLoading();
-        //createImages();
+        
         gallery.addEventListener('transitionend', () => {
             back_wrapper.classList.remove('opacity');
         }, { once: true })
