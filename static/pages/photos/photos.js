@@ -15,7 +15,7 @@
             jpg = `.jpg?tr=h-${grid_size},w-${grid_size * ratio},fo-auto,f-auto`,
             preview = `.jpg?tr=h-5:h-${height},w-${width},f-auto`,
             fs_src = `.jpg?tr=w-${fs_size},h-${fs_size},c-at_max,f-auto`,
-            fs_preview = `.jpg?tr=h-5,c-at_least:w-${fs_size},h-${fs_size},c-at_least,f-auto`,
+            fs_preview = `.jpg?tr=h-10,c-at_least:w-${fs_size},h-${fs_size},c-at_least,f-auto`,
             back_btn = document.getElementsByClassName('back-btn')[0],
             left_btn = $('.left-btn')[0],
             right_btn = $('.right-btn')[0];
@@ -83,28 +83,15 @@
         function loadFSimage(el) {
             let buffer = document.createElement('img');
             let i = parseInt(el.id);
-            //fs_image.src = `${path + i + fs_preview}`;
+            fs_image.src = `${path + i + fs_preview}`;
             fs_image.id = el.id;
-            //fs_image.setAttribute('data-src', `${path + i + fs_preview}`);
-            //fs_image.classList.add('blur')
             buffer.src = `${path + i+ fs_src}`;
-            //fs_image.classList.add('blur')
             buffer.onload = () => {
-                
                 fs_image.src = buffer.src;
-                //setTimeout(function() {
-                //    fs_image.classList.remove('blur')
-                //}, 2000);
-                // setTimeout(() => {
-                //     fs_image.removeAttribute('data-src');
-                // }, 100);
             }
+
         }
-        fs_image.addEventListener('transitionend', () => {
-            fs_image.style.filter = 'blur(0)'
-            console.log('transend');
-        })
-        //UPEND GALLERY
+            //UPEND GALLERY
         function upend() {
             $(back_btn).addClass('unclickable');
             $(gallery).one('animationend', () => {
@@ -163,7 +150,6 @@
 
         left_btn.addEventListener('click', () => {
             let current_image_index = parseInt($('.fs-image')[0].id);
-            fs_image.classList.add('blur')
             let left_image = $(`#${current_image_index - 1}`)[0];
             loadFSimage(left_image);
             imageIsLast();
@@ -171,7 +157,6 @@
 
         right_btn.addEventListener('click', () => {
             let current_image_index = parseInt($('.fs-image')[0].id);
-            fs_image.classList.add('blur')
             let right_image = $(`#${current_image_index + 1}`)[0];
             loadFSimage(right_image);
             imageIsLast();
@@ -183,7 +168,6 @@
 
         for (let i = 0; i < arr.length; i++) {
             arr[i].addEventListener('click', (event) => {
-                fs_image.classList.add('blur')
                 loadFSimage(event.target);
                 imageIsLast();
                 upend();
