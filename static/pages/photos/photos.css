@@ -90,7 +90,7 @@ a, img {
     width: calc( var(--height) * var(--ratio));
     filter: grayscale(100%);
     padding: 1.3px;
-    transition: filter 0.7s ease-in-out;
+    transition: filter 0.6s ease-in-out;
     /* animation-delay: 500ms;
     animation: image-in 2.5s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards; */
 }
@@ -110,17 +110,13 @@ a, img {
     width: unset;
     max-width: 90%;
     max-height: 90%;
-    /* filter: grayscale(100%); */
-    /* padding: 0 calc(40px + 3.2vw); */
-    filter: blur(10px);
+    transition: all 1s ease-in;
 }
-
-/* .fs-image[data-src] {
-    filter: grayscale(100%) blur(10px);
-} */
-.blur {
-    filter: blur(0) !important;
-    transition: filter 1s ease-in;
+.move-left{ 
+    margin: 0 0 0 -2000px;
+}
+.move-right {
+    margin: 0 2000px 0 0;
 }
 .visible {
     pointer-events: unset;
@@ -143,6 +139,7 @@ a, img {
     background-color: var(--bg);
 }
 .fs-image-wrapper {
+    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -153,6 +150,7 @@ a, img {
 }
 .controls {
     /* position: absolute; */
+    z-index: 11;
     cursor: default;
 }
 .back-btn {
@@ -232,19 +230,24 @@ a, img {
         width: 100%;
         filter: grayscale(0);
     }
-    /* .controls {
+    .controls {
         position: absolute;
-        top: calc(100vh - 50px);
-        left: 0;
-        z-index: 10;
+    }
+    .left-btn {
+        left: 3vw;
+        bottom: 0.3vh;
+    }
+    .right-btn {
+        right: 3vw;
+        bottom: 0.3vh;
+    }
+    .fs-image-wrapper {
         width: 100vw;
-        height: 50px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-        gap: 5%;
-        color: #c24329;
-        color: #ec992a
-    } */
+        max-width: unset;
+    }
+    .fs-image {
+        width: 100vw;
+        max-height: unset;
+        max-width: unset;
+    }
 }
