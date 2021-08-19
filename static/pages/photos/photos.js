@@ -4,6 +4,7 @@
             collection,
             arr,
             back_wrapper = $('.back-wrapper')[0],
+            fs_image = document.querySelectorAll('img.fs-image')[0],
             root_styles = getComputedStyle(document.body),
             height = parseInt(root_styles.getPropertyValue('--height')),
             ratio = parseFloat(root_styles.getPropertyValue('--ratio')),
@@ -19,7 +20,20 @@
             left_btn = $('.left-btn')[0],
             right_btn = $('.right-btn')[0];
 
-
+        //RECALCULATE IMAGES WIDTH
+        function adaptImagesWidth() {
+            let images_in_line = parseFloat(gallery.offsetWidth / width);
+            //IF THERE IS A LOT OF FREE SPACE LEFT
+            if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.6) {
+                //WE PUT ONE MORE IMAGE IN A LINE
+                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
+                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
+            } else if (0.6 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
+                //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
+                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line)));
+                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
+            }
+        }
 
         //CREATE PLACEHOLDERS
         function createPlaceholders() {
@@ -44,38 +58,52 @@
             arr = Array.prototype.slice.call(collection);
         }
 
-        //RECALCULATE GALLERY WIDTH
-        function adaptImagesWidth() {
-            let images_in_line = parseFloat(gallery.offsetWidth / width);
-            //IF THERE IS A LOT OF FREE SPACE LEFT
-            if (parseFloat(images_in_line - Math.trunc(images_in_line)) >= 0.6) {
-                //WE PUT ONE MORE IMAGE IN A LINE
-                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line + 1)));
-                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
-            } else if (0.6 > parseFloat(images_in_line - Math.trunc(images_in_line))) {
-                //IF NOT - WE RESIZE WHAT WE HAVE TO FIT THE WIDTH OF THE GALLERY
-                width = parseFloat(((gallery.clientWidth - (3.5 * parseInt(images_in_line))) / parseInt(images_in_line)));
-                document.documentElement.style.setProperty('--height', `${parseFloat(width/ratio)}px`);
-            }
+        function lazyLoading() {
+            const targets = document.querySelectorAll('div.gallery > img');
+            const lazyLoad = target => {
+                const io = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            img.src = src;
+                            //ADD TRANSITION EFFECT
+                            setTimeout(() => {
+                                img.removeAttribute("data-src");
+                            }, 1);
+                            observer.disconnect();
+                        }
+                    });
+                });
+                io.observe(target)
+            };
+            targets.forEach(lazyLoad);
         }
 
         function loadFSimage(el) {
-            let fs_image = document.getElementsByClassName('fs-image')[0];
             let buffer = document.createElement('img');
             let i = parseInt(el.id);
-            fs_image.src = ``;
-            fs_image.src = `${path + i + fs_preview}`;
+            //fs_image.src = `${path + i + fs_preview}`;
             fs_image.id = el.id;
-            fs_image.setAttribute('data-src', `loading`);
+            //fs_image.setAttribute('data-src', `${path + i + fs_preview}`);
+            //fs_image.classList.add('blur')
             buffer.src = `${path + i+ fs_src}`;
+            //fs_image.classList.add('blur')
             buffer.onload = () => {
+                
                 fs_image.src = buffer.src;
-                setTimeout(() => {
-                    fs_image.removeAttribute('data-src')
-                }, 10);
+                //setTimeout(function() {
+                //    fs_image.classList.remove('blur')
+                //}, 2000);
+                // setTimeout(() => {
+                //     fs_image.removeAttribute('data-src');
+                // }, 100);
             }
         }
-
+        fs_image.addEventListener('transitionend', () => {
+            fs_image.style.filter = 'blur(0)'
+            console.log('transend');
+        })
         //UPEND GALLERY
         function upend() {
             $(back_btn).addClass('unclickable');
@@ -120,28 +148,6 @@
             }
         }
 
-        function lazyLoading() {
-            const targets = document.querySelectorAll('div.gallery > img');
-            const lazyLoad = target => {
-                const io = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            const src = img.getAttribute('data-src');
-                            img.setAttribute('src', src);
-                            //ADD TRANSITION EFFECT
-                            setTimeout(() => {
-                                img.removeAttribute("data-src");
-                            }, 1);
-                            observer.disconnect();
-                        }
-                    });
-                });
-                io.observe(target)
-            };
-            targets.forEach(lazyLoad);
-        }
-
 
         //calling functions
         adaptImagesWidth();
@@ -157,6 +163,7 @@
 
         left_btn.addEventListener('click', () => {
             let current_image_index = parseInt($('.fs-image')[0].id);
+            fs_image.classList.add('blur')
             let left_image = $(`#${current_image_index - 1}`)[0];
             loadFSimage(left_image);
             imageIsLast();
@@ -164,6 +171,7 @@
 
         right_btn.addEventListener('click', () => {
             let current_image_index = parseInt($('.fs-image')[0].id);
+            fs_image.classList.add('blur')
             let right_image = $(`#${current_image_index + 1}`)[0];
             loadFSimage(right_image);
             imageIsLast();
@@ -175,6 +183,7 @@
 
         for (let i = 0; i < arr.length; i++) {
             arr[i].addEventListener('click', (event) => {
+                fs_image.classList.add('blur')
                 loadFSimage(event.target);
                 imageIsLast();
                 upend();
