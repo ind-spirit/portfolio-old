@@ -13,9 +13,9 @@ body {
     overflow: hidden;
     flex-direction: column;
     margin: 0;
-    font-family: Calibri, Arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 20px;
-    font-weight: lighter;
+    font-weight: 200;
     color: var(--text);
     background-color: var(--bg);
     display: flex;

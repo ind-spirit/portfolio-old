@@ -17,7 +17,7 @@ body {
     overflow: hidden;
     background-color: var(--bg);
     flex-direction: column;
-    font-family: Octarine;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 4vh;
     font-weight: 300;
     color: var(--text);

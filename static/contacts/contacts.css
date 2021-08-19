@@ -12,9 +12,9 @@
 body {
     overflow-x: hidden;
     margin: 0;
-    font-family: Calibri, Arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 23px;
-    font-weight: lighter;
+    font-weight: 200;
     color: var(--text);
     background-color: var(--bg);
 }
