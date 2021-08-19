@@ -143,6 +143,7 @@
         if (ifMobile) {
             document.body.style.height = `${window.innerHeight}px`;
             back_wrapper.style.height = `${window.innerHeight}px`;
+            gallery.style.height = `${window.innerHeight}px`;
         }
 
         adaptImagesWidth();
