@@ -12,7 +12,6 @@
     -webkit-font-smoothing: antialiased;
 }
 
-
 /* scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
@@ -111,15 +110,18 @@ a, img {
     width: unset;
     max-width: 90%;
     max-height: 90%;
-    filter: blur(0px);
+    /* filter: grayscale(100%); */
     /* padding: 0 calc(40px + 3.2vw); */
-    transition: filter 1s ease-in;
-}
-
-.fs-image[data-src] {
     filter: blur(10px);
 }
 
+/* .fs-image[data-src] {
+    filter: grayscale(100%) blur(10px);
+} */
+.blur {
+    filter: blur(0) !important;
+    transition: filter 1s ease-in;
+}
 .visible {
     pointer-events: unset;
 }
