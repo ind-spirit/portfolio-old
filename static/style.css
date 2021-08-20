@@ -1,0 +1,171 @@
+.box { 
+  margin: 0 auto;
+  margin-top: 4%;
+  border: 2px solid black;
+  width: 40%;
+  position: relative;
+}
+
+.box1 {
+  content: "";
+  padding-top: 100%;
+  display: block;
+}
+img {
+  display: none;
+}
+.artist {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 88%;
+  left: 75%;
+  font-size: 29px;
+  white-space: pre;
+}
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 13%;
+  font-size: 5px;
+  line-height: 30px;
+  font-weight: 300;
+}
+.page {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+  min-height: 100vh;
+  margin: 0;
+  font-family:     Calibri, Arial,  sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #333333;
+  background-color: #e3e2d8;
+}
+.vT {
+  font-size: 45px;
+  font-weight: lighter;
+  color: #333333;
+  line-height: 140%;
+}
+.menu {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  line-height: 180%;
+}
+
+
+a {
+  color: #333333;
+  text-decoration: none;
+  position: relative;
+} 
+a:after {
+  display: block;
+  position: absolute;
+  left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0;/*задаём длинну линии до наведения курсора*/
+  height: 2px; /*задаём ширину линии*/
+  background-color: black; /*задаём цвет линии*/
+  content: "";
+  transition: width 0.3s ease-out; /*задаём время анимации*/
+
+}
+a:hover:after,
+a:focus:after {
+    width: 100%;
+}
+
+@media screen and (max-width: 1600px){
+  .vT {
+    font-size: 40px;
+    color: red;
+  }
+  .menu {
+    font-size: 35px;
+  }
+  .artist {
+    font-size: 23px;
+  }
+  .box { 
+    margin-top: 4%;
+    border: 3px solid black;
+    width: 50%;
+    position: relative;
+  }
+}
+@media screen and (max-width: 1300px){
+  .vT {
+    font-size: 37px;
+    line-height: 125%;
+    color: blue;
+  }
+  .menu {
+    font-size: 33px;
+  }
+  .artist {
+
+    font-size: 26px;
+  }
+  .box { 
+    margin-top: 5%;
+    border: 3px solid black;
+    width: 50%;
+    position: relative;
+  }
+}
+@media screen and (max-width: 1100px){
+  .vT {
+    font-size: 34px;
+    line-height: 120%;
+    color: green;
+  }
+  .menu {
+    font-size: 31px;
+  }
+  .artist {
+
+    font-size: 23px;
+  }
+  .box { 
+    margin-top: 4%;
+    border: 3px solid black;
+    width: 70%;
+    position: relative;
+  }
+}
+@media screen and (max-width: 600px){
+  .vT {
+    font-size: 25px;
+
+    color: purple;
+  }
+  .menu {
+    font-size: 26px;
+    line-height: 180%;
+  }
+  .artist {
+
+    font-size: 17px;
+  }
+  .box { 
+    margin-top: 0%;
+    border: none;
+    width: 90%;
+    position: relative;
+  }
+  img {
+    display: block;
+    position: absolute;
+    width: 100%;
+
+  }
+}

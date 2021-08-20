@@ -1,0 +1,47 @@
+:root {
+    /* --bg: #e3e2d8;
+	--main: black;
+	--text: #333333; */
+    --bg: #fffcf2;
+    --main: black;
+    --text: #403d39;
+    --size: 70vh;
+    --bg-size: calc( var(--size) * 1.2);
+    --padding: calc((100vh - var(--bg-size)) / 2);
+    cursor: crosshair;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    overflow: hidden;
+    background-color: var(--bg);
+    flex-direction: column;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 4vh;
+    font-weight: 300;
+    color: var(--text);
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5vh 5vw;
+}
+.text {
+    margin: auto;
+    margin-top: 25vh;
+    max-width: 60vw;
+    max-height: 80vh;
+}
+
+.back {
+    color: var(--text);
+    text-decoration: none;
+    margin: 6vh auto 3vh;
+    width: fit-content;
+    position: fixed;
+    bottom: -23px;
+    cursor: default;
+}

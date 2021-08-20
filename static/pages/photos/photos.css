@@ -1,0 +1,251 @@
+:root {
+    --bg: #fffcf2;
+    --main: black;
+    --text: #403d39;
+    --control-color: #d4941c;
+    --height: 250px;
+    --grid-size: 450px;
+    --fullscreen-size: 1500px;
+    --ratio: 1.2;
+    cursor: crosshair;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+body {
+    background-color: var(--bg);
+    /* font-family: Octarine; */
+    /* font-family: 'Righteous', cursive; */
+    /* font-family: 'Patua One', cursive; */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 4vh;
+    font-weight: 400;
+    color: var(--text);
+    margin: 0;
+    max-width: 100vw;
+    perspective: 4000px;
+    -webkit-perspective: 4000px;
+    overflow: hidden;
+}
+
+.opacity {
+    opacity: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+a, img {
+    cursor: default;
+}
+
+.gallery, .back-wrapper {
+    max-width: 2560px;
+}
+
+.gallery {
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100vw;
+    height: 99.7vh;
+    right: 100vw;
+    margin-top: 0.2vh;
+    background-color: var(--bg);
+    backface-visibility: hidden;
+    pointer-events: none;
+    transition: all 1.5s ease-in-out;
+}
+
+.slideDown {
+    right: 0;
+}
+
+.gallery img {
+    display: inline;
+    object-fit: cover;
+    height: var(--height);
+    width: calc( var(--height) * var(--ratio));
+    filter: grayscale(100%);
+    padding: 1.3px;
+    transition: filter 0.6s ease-in-out;
+}
+
+.gallery img[data-src] {
+    filter: grayscale(100%) blur(20px);
+}
+
+.gallery img:hover {
+    filter: grayscale(0);
+}
+
+.fs-image {
+    display: inline;
+    object-fit: contain;
+    height: unset;
+    width: unset;
+    max-width: 90%;
+    max-height: 90%;
+    transition: all 1s ease-in;
+}
+.visible {
+    pointer-events: unset;
+}
+.back-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg);
+    left: 0;
+}
+.fs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: scale(-1, 1);
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+}
+.fs-image-wrapper {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 94%;
+    min-width: 80%;
+    width: 85%;
+    max-width: 98%;
+}
+.controls {
+    z-index: 11;
+    cursor: default;
+}
+.back-wrapper nav {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    gap: 10vw;
+    padding-bottom: 5px;
+}
+.back-btn {
+    position: relative;
+    z-index: 11;
+    cursor: default;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+.animation {
+    opacity: 100%;
+    animation: animation 1.5s;
+    animation-fill-mode: forwards;
+}
+
+.reverse-animation {
+    animation: reverse-animation 1.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animation {
+    from {
+        transform: rotateY(0deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: rotateY(90deg) rotateX(-40deg);
+        animation-timing-function: ease-out;
+    }
+    to {
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes reverse-animation {
+    from {
+        transform: rotateY(180deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: rotateY(270deg) rotateX(40deg);
+        animation-timing-function: ease-out;
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes image-in {
+    from {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+    50% {
+        clip-path: polygon(0 0, 0 0, 100% 0, 0 100%);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@media screen and (max-aspect-ratio: 8/11) {
+    .gallery {
+        width: 100vw;
+        margin: 0 0;
+        scrollbar-width: none;
+    }
+    .gallery::-webkit-scrollbar {
+        display: none;
+    }
+    .back-wrapper {
+        width: 100vw;
+    }
+    .gallery img {
+        width: 100%;
+        filter: grayscale(0);
+    }
+    .controls {
+        position: absolute;
+    }
+    .left-btn {
+        left: 3vw;
+        bottom: 0.4vh;
+    }
+    .right-btn {
+        right: 3vw;
+        bottom: 0.4vh;
+    }
+    .fs-image-wrapper {
+        width: 100vw;
+        max-width: unset;
+    }
+    .fs-image {
+        width: 100%;
+        max-height: 110vh;
+        max-width: unset;
+    }
+}
