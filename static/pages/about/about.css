@@ -13,35 +13,83 @@
     -webkit-font-smoothing: antialiased;
 }
 
+a {
+    text-decoration: none;
+    color: var(--text);
+    cursor: default;
+}
+
+.wave-ul {
+    text-decoration: rgb(59, 59, 57) wavy underline 2.7px;
+}
+
 body {
-    overflow: hidden;
     background-color: var(--bg);
     flex-direction: column;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 4vh;
     font-weight: 300;
     color: var(--text);
+    overflow: hidden;
 }
+
 .main {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     padding: 5vh 5vw;
+    min-height: 50vh;
+    max-height: 80vh;
+}
+.header {
+    min-height: 7vh;
 }
 .text {
-    margin: auto;
-    margin-top: 25vh;
-    max-width: 60vw;
-    max-height: 80vh;
+    max-width: 70vw;
+    max-height: 75vh;
+    padding-bottom: 10px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.text::-webkit-scrollbar {
+    display: none;
 }
 
 .back {
     color: var(--text);
     text-decoration: none;
-    margin: 6vh auto 3vh;
+    margin: 6vh auto 7vh;
     width: fit-content;
     position: fixed;
     bottom: -23px;
     cursor: default;
+}
+
+.ul {
+    color: var(--text);
+    text-decoration: none;
+    cursor: default;
+}
+
+.ul:after {
+    display: block;
+    position: absolute;
+    left: 0;
+    /*изменить на right:0;, чтобы изменить направление подчёркивания */
+    width: 0;
+    /*задаём длинну линии до наведения курсора*/
+    height: 0.2vh;
+    /*задаём ширину линии*/
+    background-color: black;
+    /*задаём цвет линии*/
+    content: "";
+    transition: width 0.3s ease-out;
+    /*задаём время анимации*/
+}
+
+.ul:hover:after, .ul:focus:after {
+    width: 100%;
 }
