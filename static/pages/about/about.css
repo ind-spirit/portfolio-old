@@ -1,7 +1,4 @@
 :root {
-    /* --bg: #e3e2d8;
-	--main: black;
-	--text: #333333; */
     --bg: #fffcf2;
     --main: black;
     --text: #403d39;
@@ -9,6 +6,9 @@
     --bg-size: calc( var(--size) * 1.2);
     --padding: calc((100vh - var(--bg-size)) / 2);
     cursor: crosshair;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     -webkit-font-smoothing: antialiased;
 }
@@ -20,31 +20,49 @@ a {
 }
 
 .wave-ul {
+    -webkit-text-decoration: rgb(59, 59, 57) wavy underline 2.7px;
     text-decoration: rgb(59, 59, 57) wavy underline 2.7px;
 }
 
 body {
     background-color: var(--bg);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 4vh;
     font-weight: 300;
     color: var(--text);
     overflow: hidden;
+    margin: 0;
 }
 
 .main {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     padding: 5vh 5vw;
-    min-height: 50vh;
-    max-height: 80vh;
+    height: 90vh;
+    gap: 20px;
+    width: 90vw;
+    margin: 0;
 }
+
 .header {
     min-height: 7vh;
 }
+
 .text {
     max-width: 70vw;
     max-height: 75vh;
@@ -61,10 +79,10 @@ body {
 .back {
     color: var(--text);
     text-decoration: none;
-    margin: 6vh auto 7vh;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
-    position: fixed;
-    bottom: -23px;
+    position: relative;
     cursor: default;
 }
 
@@ -86,6 +104,8 @@ body {
     background-color: black;
     /*задаём цвет линии*/
     content: "";
+    -webkit-transition: width 0.3s ease-out;
+    -o-transition: width 0.3s ease-out;
     transition: width 0.3s ease-out;
     /*задаём время анимации*/
 }

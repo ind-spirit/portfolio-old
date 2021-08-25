@@ -5,12 +5,18 @@
     --square: 78vh;
     --square-padding: calc((100vh - var(--square)) / 2);
     cursor: crosshair;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     -webkit-font-smoothing: antialiased;
 }
 
 body {
     overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
@@ -18,7 +24,11 @@ body {
     font-weight: 200;
     color: var(--text);
     background-color: var(--bg);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     height: 100vh;
 }
@@ -43,6 +53,8 @@ img {
 
 .artist {
     position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     top: 88%;
     left: 75%;
@@ -51,10 +63,19 @@ img {
 }
 
 .portfolio {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     top: 50%;
     left: 13%;
@@ -70,6 +91,8 @@ img {
 
 .menu {
     position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
@@ -100,6 +123,8 @@ a:after {
     background-color: black;
     /*задаём цвет линии*/
     content: "";
+    -webkit-transition: width 0.3s ease-out;
+    -o-transition: width 0.3s ease-out;
     transition: width 0.3s ease-out;
     /*задаём время анимации*/
 }
@@ -107,7 +132,10 @@ a:after {
 a:hover:after, a:focus:after {
     width: 100%;
 }
+
+
 /* tablets */
+
 @media screen and (max-aspect-ratio: 11/10) {
      :root {
         --square: 70vw;
@@ -125,7 +153,10 @@ a:hover:after, a:focus:after {
         font-size: 3vw;
     }
 }
+
+
 /* phones */
+
 @media screen and (max-aspect-ratio: 8/11) {
      :root {
         --square: 78vw;
@@ -152,72 +183,23 @@ a:hover:after, a:focus:after {
         display: block;
         position: absolute;
         width: 100vw;
-
+        -webkit-animation: fadein 2s;
         animation: fadein 2s;
     }
+    @-webkit-keyframes fadein {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
     @keyframes fadein {
-        from { opacity: 0; }
-        to   { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 }
-
-
-/* @media screen and (max-width: 1600px) {
-    .vT {
-        font-size: 40px;
-        color: red;
-    }
-    .menu {
-        font-size: 35px;
-    }
-    .artist {
-        font-size: 23px;
-    }
-    .box {
-        border: 3px solid black;
-        position: relative;
-    }
-} */
-
-
-/* @media screen and (max-width: 1300px) {
-    .vT {
-        font-size: 37px;
-        line-height: 125%;
-        color: blue;
-    }
-    .menu {
-        font-size: 33px;
-    }
-    .artist {
-        font-size: 26px;
-    }
-    .box {
-        border: 3px solid black;
-        position: relative;
-    }
-} */
-
-
-/* @media screen and (max-width: 1100px) {
-    .vT {
-        font-size: 34px;
-        line-height: 120%;
-        color: green;
-    }
-    .menu {
-        font-size: 31px;
-    }
-    .artist {
-        font-size: 23px;
-    }
-    .box {
-        border: 3px solid black;
-        position: relative;
-    }
-} */
-
-
-/* @media screen and (max-width: 600px) {
-
-} */
