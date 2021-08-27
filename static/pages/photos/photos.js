@@ -1,5 +1,4 @@
     window.onload = function() {
-        screen.orientation.lock('portrait');
         let total = 38,
             gallery = document.getElementsByClassName('gallery')[0],
             collection,

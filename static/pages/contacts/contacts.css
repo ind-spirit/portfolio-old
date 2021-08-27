@@ -174,7 +174,7 @@ p {
     }
 }
 
-@media screen and (max-aspect-ratio: 3/4) {
+@media screen and (max-aspect-ratio: 8/11) {
     .contacts {
         margin-top: 12vh;
         border: none;
@@ -195,3 +195,14 @@ p {
         display: none;
     }
 }
+@media only screen and (max-aspect-ratio: 8/11) and (orientation:landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        height: 100vw;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+  }
