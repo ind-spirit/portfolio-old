@@ -14,13 +14,11 @@
     user-select: none;
     -webkit-font-smoothing: antialiased;
 }
-body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-  html {
+
+html {
     height: -webkit-fill-available;
-  }
+}
+
 
 /* scrollbar */
 
@@ -41,6 +39,8 @@ body {
 }
 
 body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     background-color: var(--bg);
     /* font-family: Octarine; */
     /* font-family: 'Righteous', cursive; */
@@ -54,6 +54,7 @@ body {
     perspective: 4000px;
     -webkit-perspective: 4000px;
     overflow: hidden;
+    height: 100%;
 }
 
 .opacity {
@@ -89,9 +90,9 @@ a, img {
     -ms-flex-align: center;
     align-items: center;
     width: 100vw;
-    height: 99.7vh;
+    height: 99.7%;
     right: 100vw;
-    margin-top: 0.2vh;
+    margin-top: 0.2%;
     background-color: var(--bg);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -151,7 +152,7 @@ a, img {
 .back-wrapper {
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background-color: var(--bg);
     left: 0;
 }
@@ -383,6 +384,7 @@ a, img {
         max-width: unset;
     }
 }
+
 @media only screen and (max-aspect-ratio: 8/11) and (orientation:landscape) {
     html {
         transform: rotate(-90deg);
@@ -392,5 +394,5 @@ a, img {
         position: absolute;
         top: 100%;
         left: 0;
-      }
-  }
+    }
+}
