@@ -24,17 +24,17 @@ a {
     text-decoration: rgb(59, 59, 57) wavy underline 2.7px;
 }
 
-body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-}
-
 html {
     height: -webkit-fill-available;
 }
 
 body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -46,7 +46,7 @@ body {
     overflow: hidden;
     margin: 0;
     width: 100vw;
-    /* height: 100vh; */
+    height: 100%;
 }
 
 .main {
@@ -63,11 +63,11 @@ body {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    padding: 5% 5%;
+    /* padding: 5% 5% 0; */
     height: 90%;
     gap: 20px;
     width: 90%;
-    margin: 0;
+    /* margin: 5% 5% 0; */
 }
 
 .header {
